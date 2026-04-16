@@ -1,0 +1,49 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-server
+dist-electron
+dist-ssr
+release
+
+# Runtime data
+data
+*.db
+*.db-wal
+*.db-shm
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Test output
+test-results
+playwright-report
+tmp
+
+# Environment
+*.local
+.env
+.env.*
+
+# Editor directories
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Superpowers plugin cache
+.superpowers/

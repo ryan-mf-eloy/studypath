@@ -1,100 +1,136 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import type { RoadmapData, FocusProgress, MonthProgress, PhaseProgress } from '../types';
+import { useReviewStore } from './useReviewStore';
+import * as api from '../lib/api';
+import { enqueueWrite } from '../lib/serverSync';
 
 interface ProgressStore {
-  /** IDs dos tópicos concluídos */
   checkedTopics: string[];
+  checkedAt: Record<string, string>;
 
-  /** Marca/desmarca um tópico */
   toggleTopic: (topicId: string) => void;
-
-  /** Verifica se um tópico está concluído */
   isChecked: (topicId: string) => boolean;
 
-  /** Progresso de um foco (0–100) */
   getFocusProgress: (focusId: string, roadmap: RoadmapData) => FocusProgress;
-
-  /** Progresso de um mês (0–100) */
   getMonthProgress: (monthId: string, roadmap: RoadmapData) => MonthProgress;
-
-  /** Progresso de uma fase (0–100) */
   getPhaseProgress: (phaseId: string, roadmap: RoadmapData) => PhaseProgress;
-
-  /** Progresso total do roadmap (0–100) */
   getTotalProgress: (roadmap: RoadmapData) => number;
+  getChecksByDay: (days: number) => Array<{ date: string; count: number }>;
 
-  /** Reseta todo o progresso (uso em dev/debug) */
   reset: () => void;
 }
 
-export const useProgressStore = create<ProgressStore>()(
-  persist(
-    (set, get) => ({
-      checkedTopics: [],
+export const useProgressStore = create<ProgressStore>()((set, get) => ({
+  checkedTopics: [],
+  checkedAt: {},
 
-      toggleTopic(topicId) {
-        set(s => ({
-          checkedTopics: s.checkedTopics.includes(topicId)
-            ? s.checkedTopics.filter(id => id !== topicId)
-            : [...s.checkedTopics, topicId],
-        }));
-      },
+  toggleTopic(topicId) {
+    const wasOn = get().checkedTopics.includes(topicId);
+    set(s => {
+      if (wasOn) {
+        const { [topicId]: _drop, ...restAt } = s.checkedAt;
+        void _drop;
+        return {
+          checkedTopics: s.checkedTopics.filter(id => id !== topicId),
+          checkedAt: restAt,
+        };
+      }
+      return {
+        checkedTopics: [...s.checkedTopics, topicId],
+        checkedAt: { ...s.checkedAt, [topicId]: new Date().toISOString() },
+      };
+    });
 
-      isChecked(topicId) {
-        return get().checkedTopics.includes(topicId);
-      },
+    // Write-through to server
+    enqueueWrite(() => api.toggleProgress(topicId));
 
-      getFocusProgress(focusId, roadmap) {
-        const focus = roadmap.phases
-          .flatMap(p => p.months)
-          .flatMap(m => m.focuses)
-          .find(f => f.id === focusId);
+    // SRS side-effect
+    const reviewStore = useReviewStore.getState();
+    if (wasOn) {
+      reviewStore.removeReview(topicId);
+    } else {
+      reviewStore.scheduleReview(topicId);
+    }
+  },
 
-        if (!focus) return { focusId, done: 0, total: 0, pct: 0 };
+  isChecked(topicId) {
+    return get().checkedTopics.includes(topicId);
+  },
 
-        const total = focus.topics.length;
-        const done  = focus.topics.filter(t => get().isChecked(t.id)).length;
-        return { focusId, done, total, pct: total ? Math.round((done / total) * 100) : 0 };
-      },
+  getFocusProgress(focusId, roadmap) {
+    const focus = roadmap.phases
+      .flatMap(p => p.months)
+      .flatMap(m => m.focuses)
+      .find(f => f.id === focusId);
 
-      getMonthProgress(monthId, roadmap) {
-        const month = roadmap.phases
-          .flatMap(p => p.months)
-          .find(m => m.id === monthId);
+    if (!focus) return { focusId, done: 0, total: 0, pct: 0 };
 
-        if (!month) return { monthId, done: 0, total: 0, pct: 0 };
+    const total = focus.topics.length;
+    const done = focus.topics.filter(t => get().isChecked(t.id)).length;
+    return { focusId, done, total, pct: total ? Math.round((done / total) * 100) : 0 };
+  },
 
-        const allTopics = month.focuses.flatMap(f => f.topics);
-        const total = allTopics.length;
-        const done  = allTopics.filter(t => get().isChecked(t.id)).length;
-        return { monthId, done, total, pct: total ? Math.round((done / total) * 100) : 0 };
-      },
+  getMonthProgress(monthId, roadmap) {
+    const month = roadmap.phases
+      .flatMap(p => p.months)
+      .find(m => m.id === monthId);
 
-      getPhaseProgress(phaseId, roadmap) {
-        const phase = roadmap.phases.find(p => p.id === phaseId);
-        if (!phase) return { phaseId, done: 0, total: 0, pct: 0 };
+    if (!month) return { monthId, done: 0, total: 0, pct: 0 };
 
-        const allTopics = phase.months.flatMap(m => m.focuses).flatMap(f => f.topics);
-        const total = allTopics.length;
-        const done  = allTopics.filter(t => get().isChecked(t.id)).length;
-        return { phaseId, done, total, pct: total ? Math.round((done / total) * 100) : 0 };
-      },
+    const allTopics = month.focuses.flatMap(f => f.topics);
+    const total = allTopics.length;
+    const done = allTopics.filter(t => get().isChecked(t.id)).length;
+    return { monthId, done, total, pct: total ? Math.round((done / total) * 100) : 0 };
+  },
 
-      getTotalProgress(roadmap) {
-        const allTopics = roadmap.phases
-          .flatMap(p => p.months)
-          .flatMap(m => m.focuses)
-          .flatMap(f => f.topics);
-        const total = allTopics.length;
-        const done  = allTopics.filter(t => get().isChecked(t.id)).length;
-        return total ? Math.round((done / total) * 100) : 0;
-      },
+  getPhaseProgress(phaseId, roadmap) {
+    const phase = roadmap.phases.find(p => p.id === phaseId);
+    if (!phase) return { phaseId, done: 0, total: 0, pct: 0 };
 
-      reset() {
-        set({ checkedTopics: [] });
-      },
-    }),
-    { name: 'studypath-progress' }
-  )
-);
+    const allTopics = phase.months.flatMap(m => m.focuses).flatMap(f => f.topics);
+    const total = allTopics.length;
+    const done = allTopics.filter(t => get().isChecked(t.id)).length;
+    return { phaseId, done, total, pct: total ? Math.round((done / total) * 100) : 0 };
+  },
+
+  getTotalProgress(roadmap) {
+    const allTopics = roadmap.phases
+      .flatMap(p => p.months)
+      .flatMap(m => m.focuses)
+      .flatMap(f => f.topics);
+    const total = allTopics.length;
+    const done = allTopics.filter(t => get().isChecked(t.id)).length;
+    return total ? Math.round((done / total) * 100) : 0;
+  },
+
+  getChecksByDay(days) {
+    const localKey = (d: Date): string => {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    };
+    const out: Record<string, number> = {};
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      out[localKey(d)] = 0;
+    }
+    for (const iso of Object.values(get().checkedAt)) {
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) continue;
+      const dayKey = localKey(d);
+      if (dayKey in out) {
+        out[dayKey] += 1;
+      }
+    }
+    return Object.entries(out).map(([date, count]) => ({ date, count }));
+  },
+
+  reset() {
+    set({ checkedTopics: [], checkedAt: {} });
+    enqueueWrite(() => api.putProgress([], {}));
+  },
+}));

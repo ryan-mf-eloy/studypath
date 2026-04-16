@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F4F0E6;
+            color: #1F1B14;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#ffdad4",
+                      "on-error-container": "#93000a",
+                      "surface-container-high": "#f0e7db",
+                      "on-primary-fixed-variant": "#900c05",
+                      "on-primary-container": "#fffbff",
+                      "surface-container": "#f5ede0",
+                      "outline": "#8e706b",
+                      "secondary-fixed": "#d3e4ff",
+                      "inverse-primary": "#ffb4a8",
+                      "on-secondary-fixed-variant": "#004881",
+                      "surface-dim": "#e1d9cd",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#5a413d",
+                      "surface-bright": "#fff8f1",
+                      "inverse-on-surface": "#f8f0e3",
+                      "secondary-fixed-dim": "#a2c9ff",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#fbf2e6",
+                      "on-background": "#1f1b14",
+                      "surface": "#fff8f1",
+                      "error-container": "#ffdad6",
+                      "outline-variant": "#e2beb9",
+                      "tertiary-fixed-dim": "#ddb7ff",
+                      "on-primary-fixed": "#410000",
+                      "on-tertiary-fixed-variant": "#6900b3",
+                      "tertiary-fixed": "#f0dbff",
+                      "surface-tint": "#b3291b",
+                      "primary-container": "#d2402f",
+                      "tertiary-container": "#9c48ea",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#001c38",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#1960a3",
+                      "background": "#fff8f1",
+                      "error": "#ba1a1a",
+                      "primary": "#b02619",
+                      "surface-container-highest": "#eae1d5",
+                      "surface-variant": "#eae1d5",
+                      "secondary-container": "#7db6ff",
+                      "inverse-surface": "#343028",
+                      "on-tertiary-container": "#fffbff",
+                      "on-surface": "#1f1b14",
+                      "on-secondary-container": "#00477f",
+                      "tertiary": "#8127cf",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed": "#2c0051"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Plus Jakarta Sans"],
+                      "label": ["Plus Jakarta Sans"]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[240px] z-50 bg-[#EDE8DC] dark:bg-zinc-900 flex flex-col p-6 space-y-2">
+<div class="text-2xl font-bold text-[#1A1A1A] dark:text-[#F4F0E6] mb-8">
+            Studypath
+            <div class="text-[10px] uppercase tracking-widest text-[#7A746A] font-semibold mt-1">Academia Técnica</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-[#E84F3C] bg-[#FDF0EE] dark:bg-[#E84F3C]/10 rounded-lg font-['Plus_Jakarta_Sans'] font-semibold tracking-wide uppercase text-[12px] transition-colors scale-95 active:duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Visão Geral
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] dark:text-zinc-400 font-['Plus_Jakarta_Sans'] font-semibold tracking-wide uppercase text-[12px] hover:bg-[#F4F0E6] dark:hover:bg-zinc-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+                Roteiro
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] dark:text-zinc-400 font-['Plus_Jakarta_Sans'] font-semibold tracking-wide uppercase text-[12px] hover:bg-[#F4F0E6] dark:hover:bg-zinc-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+                Matérias
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] dark:text-zinc-400 font-['Plus_Jakarta_Sans'] font-semibold tracking-wide uppercase text-[12px] hover:bg-[#F4F0E6] dark:hover:bg-zinc-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Notas
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] dark:text-zinc-400 font-['Plus_Jakarta_Sans'] font-semibold tracking-wide uppercase text-[12px] hover:bg-[#F4F0E6] dark:hover:bg-zinc-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+                Milestones
+            </a>
+</nav>
+<button class="bg-[#1A1A1A] text-white rounded-full py-3 px-4 mb-8 font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+            Novo Estudo
+        </button>
+<div class="pt-6 border-t border-[#E8E2D4]/50 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] dark:text-zinc-400 font-['Plus_Jakarta_Sans'] font-semibold tracking-wide uppercase text-[12px] hover:bg-[#F4F0E6] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Configurações
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] dark:text-zinc-400 font-['Plus_Jakarta_Sans'] font-semibold tracking-wide uppercase text-[12px] hover:bg-[#F4F0E6] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Sair
+            </a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-[240px]">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 h-[72px] w-[calc(100%-240px)] z-40 bg-[#F4F0E6] dark:bg-zinc-950 flex justify-between items-center px-10 border-b border-[#E8E2D4]/50">
+<div class="flex flex-col">
+<h1 class="text-[#1A1A1A] dark:text-[#F4F0E6] font-bold text-2xl tracking-tight">Bom dia, Ryan.</h1>
+<p class="text-[#7A746A] text-xs font-medium">Sábado, 11 de abril de 2026</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="bg-[#FDF0EE] text-[#E84F3C] px-4 py-1.5 rounded-full text-xs font-bold tracking-wide">
+                    Fase 1 — Fundação
+                </div>
+<div class="flex gap-4 text-[#7A746A]">
+<span class="material-symbols-outlined cursor-pointer hover:text-[#E84F3C] transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-[#E84F3C] transition-colors" data-icon="calendar_today">calendar_today</span>
+</div>
+<img alt="Ryan Eloy" class="w-10 h-10 rounded-full object-cover" data-alt="Professional portrait of a young man with a friendly expression in a modern workspace setting with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-ar0jlyO-53ru6YwkWFhozLiDTZ6YJKggjTJxieGegBya2dpUZjOxDM6jjwlOO8K67RcFYVRCvhMQUPY1Lga4mAmfCSN37Pcdna5YXSWknK4g5v3olqf1eWRD_37h0mWGorLfDn9AfP7KOvS15Eg738mixaTS3lsOIoq6bAsx_Nnbd8wqsdsjgPMfGvKfRQpMhsO0YcK1geRZWlgmch2EpfF2gRY9wETCJnt_ch-6mmjqg9X_EjVZFIX9cJ6dGLSkCwgTlUqvtwAH"/>
+</div>
+</header>
+<!-- Content Area -->
+<main class="pt-[112px] px-10 pb-20 max-w-[1200px]">
+<!-- Section 1: Roadmap -->
+<section class="mb-12">
+<h2 class="text-[11px] font-bold tracking-[0.2em] text-[#7A746A] uppercase mb-4">Roadmap — Abril 2026 a Junho 2027</h2>
+<div class="bg-white rounded-xl border border-[#E8E2D4]/50 p-0 overflow-hidden">
+<!-- Phases Row -->
+<div class="grid grid-cols-5 text-[10px] font-bold tracking-widest uppercase border-b border-[#E8E2D4]/30">
+<div class="p-3 bg-[#FDF0EE] text-[#E84F3C] flex justify-center border-r border-[#E8E2D4]/30">Fundação</div>
+<div class="p-3 bg-[#EEF4FB] text-[#2B6CB0] flex justify-center border-r border-[#E8E2D4]/30">Integração</div>
+<div class="p-3 bg-[#FDF0EE] text-[#E84F3C] flex justify-center border-r border-[#E8E2D4]/30">Intensificação</div>
+<div class="p-3 bg-[#EDF7F2] text-[#3D9E6B] flex justify-center border-r border-[#E8E2D4]/30">Consolidação</div>
+<div class="p-3 bg-[#F5EDFF] text-[#A855F7] flex justify-center">Expansão 2027</div>
+</div>
+<!-- Months Scrollable Row -->
+<div class="flex overflow-x-auto no-scrollbar bg-white">
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 bg-[#FDF0EE] relative group">
+<span class="text-[10px] font-bold text-[#E84F3C]">Abr/26</span>
+<span class="text-[8px] font-bold text-[#E84F3C] mt-1 whitespace-nowrap">← você está aqui</span>
+</div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40 hover:opacity-100 transition-opacity">
+<span class="text-[10px] font-semibold text-[#7A746A]">Mai/26</span>
+</div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40">
+<span class="text-[10px] font-semibold text-[#7A746A]">Jun/26</span>
+</div>
+<!-- Filler months -->
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Jul/26</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Ago/26</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Set/26</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Out/26</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Nov/26</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Dez/26</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Jan/27</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Fev/27</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Mar/27</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Abr/27</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 border-r border-[#E8E2D4]/20 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Mai/27</span></div>
+<div class="flex-none w-20 flex flex-col items-center py-4 opacity-40"><span class="text-[10px] font-semibold text-[#7A746A]">Jun/27</span></div>
+</div>
+<!-- Bottom Progress Bar -->
+<div class="h-1 w-full bg-[#EDE8DC]/50">
+<div class="h-full bg-[#E84F3C]" style="width: 2%"></div>
+</div>
+</div>
+</section>
+<!-- Section 2: Focos Ativos Grid -->
+<section>
+<h2 class="text-[11px] font-bold tracking-[0.2em] text-[#7A746A] uppercase mb-6">Abril 2026 — Focos Ativos</h2>
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Column 1: Focus Cards -->
+<div class="col-span-6 space-y-4">
+<!-- Card 1: Principal -->
+<div class="bg-[#FDF0EE] rounded-xl border-l-4 border-[#E84F3C] p-6 transition-all hover:translate-x-1 cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-[#E84F3C] text-white px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase">Principal</span>
+<span class="text-[#E84F3C] font-bold text-sm">25%</span>
+</div>
+<h3 class="text-xl font-bold text-[#1A1A1A] mb-4">Node.js runtime &amp; event loop</h3>
+<div class="w-full h-1 bg-[#E84F3C]/20 rounded-full mb-6">
+<div class="h-full bg-[#E84F3C] rounded-full" style="width: 25%"></div>
+</div>
+<ul class="space-y-3 text-sm text-[#1A1A1A]">
+<li class="flex items-center gap-3 opacity-60">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="line-through">Call stack &amp; Heap memory</span>
+</li>
+<li class="flex items-center gap-3 opacity-60">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="line-through">Libuv &amp; Thread Pool basics</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span>Event Loop phases (timers, poll, check)</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span>Microtasks queue deep dive</span>
+</li>
+</ul>
+</div>
+<!-- Card 2: Secondary -->
+<div class="bg-[#EEF4FB] rounded-xl border-l-4 border-[#2B6CB0] p-6 transition-all hover:translate-x-1 cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-[#2B6CB0] text-white px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase">Secundário</span>
+<span class="text-[#2B6CB0] font-bold text-sm">0%</span>
+</div>
+<h3 class="text-xl font-bold text-[#1A1A1A] mb-4">Fundamentos de arquitetura</h3>
+<div class="w-full h-1 bg-[#2B6CB0]/20 rounded-full"></div>
+</div>
+<!-- Card 3: Continuous -->
+<div class="bg-[#EDF7F2] rounded-xl border-l-4 border-[#3D9E6B] p-6 transition-all hover:translate-x-1 cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-[#3D9E6B] text-white px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase">Contínuo</span>
+<span class="text-[#3D9E6B] font-bold text-sm">40%</span>
+</div>
+<h3 class="text-xl font-bold text-[#1A1A1A] mb-4">Algoritmos base + inglês técnico</h3>
+<div class="w-full h-1 bg-[#3D9E6B]/20 rounded-full mb-2">
+<div class="h-full bg-[#3D9E6B] rounded-full" style="width: 40%"></div>
+</div>
+</div>
+</div>
+<!-- Column 2: Milestones -->
+<div class="col-span-3 space-y-6">
+<div class="bg-[#F5EDFF] rounded-xl border border-[#A855F7]/30 p-6">
+<h4 class="text-[10px] font-bold text-[#A855F7] tracking-widest uppercase mb-6">Próxima Meta</h4>
+<div class="mb-4">
+<span class="text-6xl font-extrabold text-[#A855F7] leading-none">172</span>
+<span class="text-sm font-bold text-[#A855F7] ml-1">dias</span>
+</div>
+<p class="text-lg font-bold text-[#1A1A1A] leading-tight">AWS SAA-C03</p>
+<p class="text-[11px] text-[#7A746A] mt-1">Certificação · Outubro 2026</p>
+</div>
+<div class="bg-white rounded-xl border border-[#E8E2D4]/50 p-6">
+<h4 class="text-[10px] font-bold text-[#7A746A] tracking-widest uppercase mb-4">No Horizonte</h4>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="w-1 h-10 bg-[#A855F7]/20 rounded-full"></div>
+<div>
+<p class="text-xs font-bold text-[#1A1A1A]">GCP Prof. Architect</p>
+<p class="text-[10px] text-[#7A746A]">Janeiro 2027</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-1 h-10 bg-[#2B6CB0]/20 rounded-full"></div>
+<div>
+<p class="text-xs font-bold text-[#1A1A1A]">Azure AZ-104</p>
+<p class="text-[10px] text-[#7A746A]">Março 2027</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-1 h-10 bg-[#3D9E6B]/20 rounded-full"></div>
+<div>
+<p class="text-xs font-bold text-[#1A1A1A]">Lançamento Sequoia</p>
+<p class="text-[10px] text-[#7A746A]">Junho 2027</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Progress Visualization -->
+<div class="col-span-3 space-y-6">
+<div class="bg-white rounded-xl border border-[#E8E2D4]/50 p-8 flex flex-col items-center text-center">
+<h4 class="text-[10px] font-bold text-[#7A746A] tracking-widest uppercase mb-8">Progresso Geral</h4>
+<!-- Donut Chart -->
+<div class="relative w-32 h-32 mb-6">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#F4F0E6" stroke-width="3"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#E84F3C" stroke-dasharray="2, 100" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-extrabold text-[#1A1A1A]">2%</span>
+<span class="text-[9px] font-bold text-[#7A746A] uppercase tracking-tighter">Concluído</span>
+</div>
+</div>
+<!-- Detailed Stats -->
+<div class="w-full space-y-4">
+<div class="space-y-1.5">
+<div class="flex justify-between text-[9px] font-bold uppercase tracking-widest text-[#7A746A]">
+<span>Fundação</span>
+<span class="text-[#E84F3C]">8%</span>
+</div>
+<div class="w-full h-1 bg-[#EDE8DC] rounded-full overflow-hidden">
+<div class="bg-[#E84F3C] h-full" style="width: 8%"></div>
+</div>
+</div>
+<div class="space-y-1.5 opacity-40">
+<div class="flex justify-between text-[9px] font-bold uppercase tracking-widest text-[#7A746A]">
+<span>Integração</span>
+<span>0%</span>
+</div>
+<div class="w-full h-1 bg-[#EDE8DC] rounded-full overflow-hidden">
+<div class="bg-[#2B6CB0] h-full" style="width: 0%"></div>
+</div>
+</div>
+<div class="space-y-1.5 opacity-40">
+<div class="flex justify-between text-[9px] font-bold uppercase tracking-widest text-[#7A746A]">
+<span>Intensificação</span>
+<span>0%</span>
+</div>
+<div class="w-full h-1 bg-[#EDE8DC] rounded-full overflow-hidden">
+<div class="bg-[#E84F3C] h-full" style="width: 0%"></div>
+</div>
+</div>
+<div class="space-y-1.5 opacity-40">
+<div class="flex justify-between text-[9px] font-bold uppercase tracking-widest text-[#7A746A]">
+<span>Consolidação</span>
+<span>0%</span>
+</div>
+<div class="w-full h-1 bg-[#EDE8DC] rounded-full overflow-hidden">
+<div class="bg-[#3D9E6B] h-full" style="width: 0%"></div>
+</div>
+</div>
+<div class="space-y-1.5 opacity-40">
+<div class="flex justify-between text-[9px] font-bold uppercase tracking-widest text-[#7A746A]">
+<span>Expansão</span>
+<span>0%</span>
+</div>
+<div class="w-full h-1 bg-[#EDE8DC] rounded-full overflow-hidden">
+<div class="bg-[#A855F7] h-full" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

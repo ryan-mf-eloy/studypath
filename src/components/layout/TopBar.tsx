@@ -1,108 +1,113 @@
-import { roadmap } from '../../data/roadmap';
-import { getGreeting, formatDateLong, getCurrentMonth } from '../../lib/utils';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useProgressStore } from '../../store/useProgressStore';
+import { useRoadmap } from '../../store/useRoadmapStore';
+import SearchBar from '../ui/SearchBar';
+import PageNav from './PageNav';
+import ThemeToggle from './ThemeToggle';
+import StreakBadge from './StreakBadge';
+import AppMenuButton from './AppMenuButton';
+import AIChatLauncher from './AIChatLauncher';
 
 export default function TopBar() {
-  const greeting = getGreeting();
-  const today = formatDateLong();
-  const currentMonth = getCurrentMonth(roadmap);
-  const getTotalProgress = useProgressStore(s => s.getTotalProgress);
-  const totalPct = getTotalProgress(roadmap);
+  const { t } = useTranslation();
+  const checkedTopics = useProgressStore(s => s.checkedTopics);
+  const roadmap = useRoadmap();
+
+  const allTopics = useMemo(
+    () => roadmap.phases.flatMap(p => p.months).flatMap(m => m.focuses).flatMap(f => f.topics),
+    [roadmap],
+  );
+
+  const totalTopics = allTopics.length;
+  const done = allTopics.filter(t => checkedTopics.includes(t.id)).length;
+  const pct = totalTopics ? Math.round((done / totalTopics) * 100) : 0;
 
   return (
     <header
+      className="flex items-center justify-between"
       style={{
-        position: 'fixed',
-        top: 0,
-        left: 'var(--sidebar-width)',
-        right: 0,
+        padding: 'var(--page-pad-top) var(--page-pad-x)',
         height: 'var(--topbar-height)',
-        background: 'var(--bg-surface)',
-        borderBottom: '1px solid var(--border-subtle)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 var(--space-6)',
-        zIndex: 90,
       }}
     >
-      {/* Left: greeting */}
-      <div>
-        <p
-          style={{
-            margin: 0,
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontWeight: 700,
-            fontSize: '1rem',
-            color: 'var(--text-primary)',
-            lineHeight: 1.2,
-          }}
-        >
-          {greeting}, Ryan.
-        </p>
-        <p
-          style={{
-            margin: 0,
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontSize: '0.8125rem',
-            color: 'var(--text-muted)',
-            lineHeight: 1.4,
-            textTransform: 'capitalize',
-          }}
-        >
-          {today}
-        </p>
-      </div>
-
-      {/* Right: current phase badge + progress */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-        {currentMonth && (
+      {/* Logo + nav */}
+      <div className="flex items-center">
+        <div className="flex items-baseline gap-0">
           <span
             style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontWeight: 600,
-              fontSize: '0.75rem',
-              color: 'var(--focus-main)',
-              background: 'var(--focus-main-bg)',
-              padding: '4px 10px',
-              borderRadius: 'var(--radius-full)',
-              border: '1px solid rgba(232,79,60,0.2)',
+              fontFamily: 'var(--font-serif)',
+              fontSize: 22,
+              color: 'var(--text)',
+              lineHeight: 1,
             }}
           >
-            {currentMonth.label}
+            study
           </span>
-        )}
+          <span
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 22,
+              color: 'var(--text-30)',
+              lineHeight: 1,
+            }}
+          >
+            path
+          </span>
+        </div>
+        <PageNav />
+      </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+      {/* Center: search */}
+      <SearchBar />
+
+      {/* Right side: AI + app menu + theme toggle + streak + progress */}
+      <div className="flex items-center gap-6">
+        <AIChatLauncher />
+        <AppMenuButton />
+        <ThemeToggle />
+        <StreakBadge />
+
+        {/* Global progress */}
+        <div className="flex items-center gap-3">
+          <span
+            style={{
+              fontSize: 13,
+              color: 'var(--text-50)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {done} {t('common.of')} {totalTopics}
+          </span>
+
+          {/* Progress bar */}
           <div
             style={{
               width: 120,
-              height: 6,
-              background: 'var(--border-subtle)',
-              borderRadius: 'var(--radius-full)',
+              height: 3,
+              backgroundColor: 'var(--text-08)',
+              borderRadius: 0,
               overflow: 'hidden',
             }}
           >
             <div
               style={{
-                width: `${totalPct}%`,
+                width: `${pct}%`,
                 height: '100%',
-                background: 'var(--focus-main)',
-                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--text)',
                 transition: 'width var(--transition-base)',
               }}
             />
           </div>
+
           <span
             style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontWeight: 600,
-              fontSize: '0.75rem',
-              color: 'var(--text-muted)',
-              minWidth: '32px',
+              fontSize: 13,
+              color: 'var(--text-50)',
+              fontWeight: 500,
             }}
           >
-            {totalPct}%
+            {pct}%
           </span>
         </div>
       </div>

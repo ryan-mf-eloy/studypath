@@ -1,0 +1,796 @@
+/* ─── BlockNote Theme Overrides ──────────────────────────────────────────────
+   Adapta o editor BlockNote ao design system do StudyPath (warm minimalism).
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Root editor container */
+.bn-container[data-theming-css-variables-demo],
+.bn-container {
+  --bn-font-family: var(--font-sans);
+  --bn-border-radius: 0;
+  --bn-colors-editor-text: var(--text);
+  --bn-colors-editor-background: var(--bg-surface);
+  --bn-colors-menu-text: var(--text);
+  --bn-colors-menu-background: var(--bg-surface);
+  --bn-colors-tooltip-text: var(--bg-surface);
+  --bn-colors-tooltip-background: var(--text);
+  --bn-colors-hovered-text: var(--text);
+  --bn-colors-hovered-background: var(--text-08);
+  --bn-colors-selected-text: var(--bg-surface);
+  --bn-colors-selected-background: var(--accent-coral);
+  --bn-colors-disabled-text: var(--text-30);
+  --bn-colors-disabled-background: var(--text-08);
+  --bn-colors-shadow: transparent;
+  --bn-colors-border: var(--text-15);
+  --bn-colors-side-menu: var(--text-30);
+  /* ── Block highlight colors — semi-transparent backgrounds ────────
+     Text keeps the body color (readable on any bg). Backgrounds use
+     ~14% alpha so they're subtle tints, not solid colors. */
+  --bn-colors-highlights-gray-text: var(--text);
+  --bn-colors-highlights-gray-background: rgba(155, 155, 155, 0.14);
+  --bn-colors-highlights-red-text: var(--text);
+  --bn-colors-highlights-red-background: rgba(224, 62, 62, 0.14);
+  --bn-colors-highlights-orange-text: var(--text);
+  --bn-colors-highlights-orange-background: rgba(217, 115, 13, 0.14);
+  --bn-colors-highlights-yellow-text: var(--text);
+  --bn-colors-highlights-yellow-background: rgba(223, 171, 1, 0.14);
+  --bn-colors-highlights-green-text: var(--text);
+  --bn-colors-highlights-green-background: rgba(15, 123, 108, 0.14);
+  --bn-colors-highlights-blue-text: var(--text);
+  --bn-colors-highlights-blue-background: rgba(11, 110, 153, 0.14);
+  --bn-colors-highlights-purple-text: var(--text);
+  --bn-colors-highlights-purple-background: rgba(105, 64, 165, 0.14);
+  --bn-colors-highlights-pink-text: var(--text);
+  --bn-colors-highlights-pink-background: rgba(173, 26, 114, 0.14);
+  --bn-colors-highlights-brown-text: var(--text);
+  --bn-colors-highlights-brown-background: rgba(100, 71, 58, 0.14);
+}
+
+/* Remove all box-shadows */
+.bn-container .bn-toolbar,
+.bn-container .bn-slash-menu,
+.bn-container .bn-side-menu,
+.bn-container .bn-drag-handle-menu,
+.bn-container [class*="mantine-Menu-dropdown"],
+.bn-container [class*="mantine-Popover-dropdown"] {
+  box-shadow: none !important;
+  border: 1px solid var(--text-15) !important;
+  border-radius: 0 !important;
+}
+
+/* Toolbar buttons — square corners */
+.bn-container [class*="mantine-ActionIcon"],
+.bn-container [class*="mantine-Button"] {
+  border-radius: 0 !important;
+}
+
+/* Menu items — square corners */
+.bn-container [class*="mantine-Menu-item"] {
+  border-radius: 0 !important;
+}
+
+/* ─── Slash menu (suggestion menu) ────────────────────────────────── */
+/* Icon section: remove the dark square background, keep only the icon */
+.bn-suggestion-menu .bn-mt-suggestion-menu-item-section[data-position="left"],
+.bn-mantine .bn-suggestion-menu .bn-mt-suggestion-menu-item-section[data-position="left"] {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  padding: 6px !important;
+  color: var(--text) !important;
+}
+
+.bn-suggestion-menu .bn-mt-suggestion-menu-item-section[data-position="left"] svg {
+  color: var(--text);
+  fill: currentColor;
+}
+
+/* Right side (keyboard shortcut pills) — subtle */
+.bn-suggestion-menu .bn-mt-suggestion-menu-item-section[data-position="right"] kbd,
+.bn-suggestion-menu .bn-mt-suggestion-menu-item-section[data-position="right"] [class*="Badge"] {
+  background-color: var(--text-08) !important;
+  color: var(--text-50) !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--text-08) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* Selected / hover */
+.bn-mantine .bn-suggestion-menu-item[aria-selected="true"],
+.bn-mantine .bn-suggestion-menu-item:hover {
+  background-color: var(--text-08) !important;
+}
+
+/* Group labels */
+.bn-mantine .bn-suggestion-menu-label {
+  color: var(--text-50);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 10px 12px 6px;
+}
+
+/* ─── Emoji picker (emoji-mart via GridSuggestionMenuController) ──── */
+/* emoji-mart renders inside a Shadow DOM so most styling is isolated.
+   We reset BlockNote's grid menu wrapper to be an unstyled container
+   so emoji-mart's own picker sits flush inside. */
+.bn-mantine .bn-grid-suggestion-menu {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  max-height: none !important;
+  width: auto !important;
+  overflow: visible !important;
+  display: block !important;
+}
+
+.bn-mantine .bn-grid-suggestion-menu > em-emoji-picker {
+  display: block;
+}
+
+.bn-mantine .bn-emoji-picker-popover {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* emoji-mart theme customization via CSS custom properties.
+   These propagate into emoji-mart's shadow DOM. */
+.studypath-emoji-picker-wrapper em-emoji-picker {
+  --rgb-accent: 232, 79, 60; /* coral */
+  --rgb-background: 255, 255, 255;
+  --rgb-color: 26, 26, 26;
+  --rgb-input: 250, 248, 242;
+  --border-radius: 0;
+  --shadow: none;
+  --font-family: var(--font-sans);
+  max-height: 380px;
+  min-height: 380px;
+}
+
+/* Headings — font-family driven by --note-title-font (user preference) */
+.bn-container [data-content-type="heading"] [data-text],
+.bn-container .bn-block-content[data-content-type="heading"] {
+  font-family: var(--note-title-font, var(--font-serif)) !important;
+}
+
+/* Editor body — font, size and line-height driven by user preferences.
+   line-height must also target .bn-block-outer because BlockNote hardcodes
+   line-height: 1.5 there, which has higher specificity than .bn-editor. */
+.bn-container .bn-editor,
+.bn-container .bn-editor .bn-block-outer,
+.bn-container .bn-editor .bn-block,
+.bn-container .bn-editor .bn-block-content,
+.bn-container .bn-editor .bn-inline-content {
+  line-height: var(--note-line-height, 1.7) !important;
+}
+.bn-container .bn-editor {
+  font-family: var(--note-body-font, var(--font-sans)) !important;
+  font-size: var(--note-body-size, 15px) !important;
+  color: var(--text);
+  /* Generous bottom padding so the last block isn't flush with the
+     container edge — gives room to scroll past and click to add new
+     content, similar to Notion's empty trailing area. */
+  padding-bottom: 240px !important;
+}
+
+/* ─── Block rhythm & alignment ─────────────────────────────────────
+   Notion-style vertical spacing: tight within lists, generous around
+   headings and media, consistent gap between paragraphs. */
+
+/* Default spacing for ordinary blocks (paragraph, list items) */
+.bn-container .bn-block-content {
+  padding: 4px 0 !important;
+}
+
+/* Paragraph text */
+.bn-container .bn-block-content[data-content-type="paragraph"] {
+  padding: 4px 0 !important;
+}
+
+/* Headings — more breathing room above, less below (Notion-style) */
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="heading"]) {
+  margin-top: 28px;
+}
+
+.bn-container .bn-block-outer:first-child:has(> .bn-block > .bn-block-content[data-content-type="heading"]) {
+  margin-top: 0;
+}
+
+.bn-container .bn-block-content[data-content-type="heading"] {
+  padding: 6px 0 !important;
+}
+
+/* Slightly tighter top space for H2 / H3 compared to H1 */
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="heading"][data-level="2"]) {
+  margin-top: 24px;
+}
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="heading"][data-level="3"]) {
+  margin-top: 18px;
+}
+
+/* Lists: tighter spacing between list items */
+.bn-container .bn-block-content[data-content-type="bulletListItem"],
+.bn-container .bn-block-content[data-content-type="numberedListItem"],
+.bn-container .bn-block-content[data-content-type="checkListItem"] {
+  padding: 2px 0 !important;
+}
+
+/* Nested lists indent cleaner */
+.bn-container .bn-block-group .bn-block-group {
+  margin-left: 28px !important;
+}
+
+/* Code blocks: generous vertical margin */
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="codeBlock"]) {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+/* Images, videos, embeds, link previews: generous margin */
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="image"]),
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="video"]),
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="embed"]),
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="linkPreview"]),
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="table"]) {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+/* Quote blocks */
+.bn-container .bn-block-content[data-content-type="quote"] {
+  padding: 8px 0 8px 20px !important;
+  border-left: 3px solid var(--text-15);
+  color: var(--text-80, var(--text));
+  font-style: italic;
+}
+
+/* Divider: more margin */
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="divider"]) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Block selection highlight — Notion-style: subtle blue tint.
+   Applied by BlockNote for NodeSelection (non-text blocks). */
+.bn-container .bn-block-content.ProseMirror-selectednode,
+.bn-container .ProseMirror-selectednode > .bn-block-content > * {
+  outline: none !important;
+  background-color: rgba(55, 131, 235, 0.08) !important;
+  border-radius: 4px;
+}
+
+/* Multi-block selection highlight (drag-select overlay + Shift+click). */
+.bn-block-outer.sp-block-selected,
+.bn-block-outer.sp-block-selected > .bn-block {
+  background-color: rgba(55, 131, 235, 0.10);
+  border-radius: 4px;
+}
+
+/* Block-outer: NO transitions — they cause flickering during media resize
+   because ProseMirror updates inline styles on every mousemove frame.
+   The drag-handle highlight uses a <style> tag which applies instantly. */
+
+/* Drag-select rectangle */
+.sp-drag-rect {
+  background-color: rgba(232, 79, 60, 0.08);
+  border: 1px solid rgba(232, 79, 60, 0.45);
+  mix-blend-mode: multiply;
+}
+
+/* Even more room when the note is in fullscreen mode */
+.note-panel[data-fullscreen="true"] .bn-container .bn-editor {
+  padding-bottom: 480px !important;
+}
+
+/* Width preference — data-note-width drives the panel width override so
+   the inline style can't be accidentally beaten by any conflicting rule. */
+.note-panel[data-note-width="narrow"] { width: 560px !important; }
+.note-panel[data-note-width="normal"] { width: 680px !important; }
+.note-panel[data-note-width="wide"]   { width: 860px !important; }
+.note-panel[data-fullscreen="true"]   { width: 100vw !important; }
+
+/* Placeholder text */
+.bn-container .bn-block-content.bn-is-empty .bn-inline-content::before {
+  color: var(--text-30) !important;
+}
+
+/* Checkbox blocks — square checkboxes */
+/* ── Custom checkbox — replaces native input with animated SVG ──── */
+.bn-container [data-content-type="checkListItem"] input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px;
+  border: 2px solid var(--text-30);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  margin-right: 10px !important;
+  margin-left: 2px !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  vertical-align: middle;
+}
+
+/* Hover state */
+.bn-container [data-content-type="checkListItem"] input[type="checkbox"]:hover {
+  border-color: var(--accent-green);
+}
+
+/* Checked state — green background with white checkmark */
+.bn-container [data-content-type="checkListItem"] input[type="checkbox"]:checked {
+  background-color: var(--accent-green);
+  border-color: var(--accent-green);
+  animation: sp-checkbox-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* SVG checkmark via pseudo-element */
+.bn-container [data-content-type="checkListItem"] input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%) scale(0);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 12 10 18 20 6'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bn-container [data-content-type="checkListItem"] input[type="checkbox"]:checked::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Checked text: subtle muted color instead of harsh strikethrough */
+.bn-container [data-content-type="checkListItem"][data-checked="true"] .bn-inline-content {
+  text-decoration: line-through !important;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+/* Pop animation keyframes */
+@keyframes sp-checkbox-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.2); }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* ─── Code blocks ────────────────────────────────────────────────── */
+/*
+ * Layout: 44px line-number gutter on the left, floating language
+ * selector in the top-right. No header bar. Content padding-top leaves
+ * enough room so the floating selector doesn't overlap line 1.
+ */
+.bn-container [data-content-type="codeBlock"] {
+  background-color: var(--bg-pill) !important;
+  border: 1px solid var(--text-15) !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+/* Line-number gutter — pure CSS pseudo-element with hard-coded digits.
+   The gutter aligns with `pre` padding-top; lines past the actual code
+   are clipped by `pre`'s height. Supports up to 60 lines which is plenty
+   for study notes; more than that becomes overlap but never breaks. */
+.bn-container [data-content-type="codeBlock"] pre {
+  margin: 0 !important;
+  padding: 14px 44px 14px 52px !important;
+  background: transparent !important;
+  tab-size: 2;
+  color: var(--text);
+  position: relative;
+  /* Default: horizontal scroll, invisible scrollbar */
+  white-space: pre;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.bn-container [data-content-type="codeBlock"] pre::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+/* Line-number column — pseudo-element on the `pre`, which has block layout.
+   (The codeBlock container is `display: flex` which makes pseudo-elements
+   behave as flex items and collapse — we use `pre` instead.) */
+.bn-container [data-content-type="codeBlock"] pre::before {
+  content: '1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A 10\A 11\A 12\A 13\A 14\A 15\A 16\A 17\A 18\A 19\A 20\A 21\A 22\A 23\A 24\A 25\A 26\A 27\A 28\A 29\A 30\A 31\A 32\A 33\A 34\A 35\A 36\A 37\A 38\A 39\A 40\A 41\A 42\A 43\A 44\A 45\A 46\A 47\A 48\A 49\A 50\A 51\A 52\A 53\A 54\A 55\A 56\A 57\A 58\A 59\A 60';
+  position: absolute;
+  top: 14px;
+  left: 0;
+  width: 40px;
+  height: calc(100% - 28px);
+  padding: 0;
+  text-align: center;
+  white-space: pre;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-30);
+  user-select: none;
+  pointer-events: none;
+  overflow: hidden;
+  border-right: 1px solid var(--text-08);
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+/* Wrap mode — toggled per code block via data-wrap attribute */
+.bn-container [data-content-type="codeBlock"][data-wrap="true"] pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+}
+
+.bn-container [data-content-type="codeBlock"] code {
+  background: transparent !important;
+  padding: 0 !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  display: block;
+}
+
+/* Shiki token spans keep their inline colors via style attribute */
+.bn-container [data-content-type="codeBlock"] code span {
+  font-family: inherit;
+}
+
+/* Floating language selector — no header bar, just a pill in the corner */
+.bn-container [data-content-type="codeBlock"] > div[contenteditable="false"] {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  background: transparent;
+  border: none;
+  padding: 0;
+  height: auto;
+  display: block;
+}
+
+/* Language dropdown — visible pill.
+   BlockNote sets `position:absolute; top:8px; left:18px; opacity:0` on the
+   select. We unset all four and restyle as a floating pill. */
+.bn-container [data-content-type="codeBlock"] > div[contenteditable="false"] > select,
+.bn-block-content[data-content-type="codeBlock"] > div > select {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  opacity: 1 !important;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--text-15);
+  border-radius: 0;
+  color: var(--text);
+  font-size: 10px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 4px 20px 4px 10px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px var(--shadow-sm);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.bn-container [data-content-type="codeBlock"] select:hover {
+  background-color: var(--bg-surface);
+  border-color: var(--text-30);
+}
+
+.bn-container [data-content-type="codeBlock"] select:focus {
+  outline: none;
+  background-color: var(--bg-surface);
+  border-color: var(--text);
+}
+
+/* Code block action buttons — React overlays positioned absolutely
+   relative to the editor wrapper. Rendered outside ProseMirror's
+   managed tree so they don't get stripped on node view reconciles. */
+.code-action-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 26px;
+  padding: 0;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--text-15);
+  border-radius: 0;
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 1px 2px var(--shadow-sm);
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.code-action-btn:hover {
+  background-color: var(--bg-surface);
+  border-color: var(--text-30);
+}
+
+.code-action-btn svg {
+  width: 13px;
+  height: 13px;
+  color: currentColor;
+  pointer-events: none;
+}
+
+.code-action-btn.is-active {
+  background-color: var(--focus-main-bg);
+  border-color: var(--accent-coral);
+  color: var(--accent-coral);
+}
+
+.code-action-btn.is-copied {
+  background-color: var(--focus-cont-bg);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+/* Inline code */
+.bn-container code:not([data-content-type="codeBlock"] code) {
+  background: var(--text-08);
+  border: 1px solid var(--text-08);
+  padding: 1px 6px;
+  font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  font-size: 0.9em;
+  border-radius: 0;
+  color: var(--accent-coral, var(--text));
+}
+
+/* ── Media blocks — elegant preview styling ─────────────────────── */
+
+/* Images — clean with subtle border */
+.bn-container [data-content-type="image"] img,
+.bn-container [data-content-type="image"] .bn-visual-media {
+  border-radius: 6px !important;
+  border: 1px solid var(--text-08);
+}
+
+/* Image captions */
+.bn-container [data-file-block] .bn-file-caption {
+  font-size: 12px !important;
+  color: var(--text-50) !important;
+  text-align: center;
+  padding: 6px 0 !important;
+  font-style: italic;
+}
+
+/* Video blocks — rounded, border, with play-ready appearance */
+.bn-container [data-content-type="video"] video,
+.bn-container [data-content-type="video"] .bn-visual-media {
+  border-radius: 6px !important;
+  border: 1px solid var(--text-08);
+  background: #000;
+}
+.bn-container [data-content-type="video"] iframe {
+  border-radius: 6px !important;
+  border: 1px solid var(--text-08);
+}
+
+/* Audio blocks — clean dark player */
+.bn-container [data-content-type="audio"] audio {
+  width: 100%;
+  border-radius: 6px !important;
+  background: var(--text-04);
+  border: 1px solid var(--text-08);
+}
+.bn-container [data-content-type="audio"] .bn-audio {
+  border-radius: 6px !important;
+  overflow: hidden;
+  border: 1px solid var(--text-08);
+}
+
+/* File blocks — clean card with icon */
+.bn-container [data-content-type="file"] .bn-file-name-with-icon {
+  border: 1px solid var(--text-10, var(--text-15)) !important;
+  border-radius: 6px !important;
+  padding: 10px 14px !important;
+  gap: 10px !important;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.bn-container [data-content-type="file"] .bn-file-name-with-icon:hover {
+  border-color: var(--text-30) !important;
+  background-color: var(--text-04) !important;
+}
+.bn-container [data-content-type="file"] .bn-file-icon {
+  width: 20px !important;
+  height: 20px !important;
+  color: var(--text-50);
+}
+
+/* Upload placeholder — match design system */
+.bn-container [data-file-block] .bn-add-file-button {
+  background-color: var(--text-04) !important;
+  border: 1px dashed var(--text-15) !important;
+  border-radius: 6px !important;
+  color: var(--text-50) !important;
+  padding: 16px 18px !important;
+  gap: 12px !important;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.bn-container [data-file-block] .bn-add-file-button:hover {
+  border-color: var(--text-30) !important;
+  background-color: var(--text-08) !important;
+}
+.bn-container [data-file-block] .bn-add-file-button-icon {
+  color: var(--text-30) !important;
+}
+.bn-container [data-file-block] .bn-add-file-button-text {
+  font-size: 13px !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Resize handles — minimal, always accessible */
+.bn-container [data-file-block] .bn-resize-handle {
+  background-color: var(--text-50) !important;
+  border: 1px solid var(--bg-surface) !important;
+  border-radius: 3px !important;
+  width: 6px !important;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 5 !important;
+}
+.bn-container [data-file-block]:hover .bn-resize-handle {
+  opacity: 1;
+}
+
+/* Visual media wrapper — GPU-accelerated, NO transitions (resize flicker) */
+.bn-container [data-file-block] .bn-visual-media-wrapper {
+  will-change: width;
+  transition: none !important;
+}
+
+/* Kill ALL transitions inside file blocks — Mantine injects a 0.35s
+   cubic-bezier transition on wrapper divs which causes resize flicker.
+   Media elements must update width instantly on every mousemove frame. */
+.bn-container [data-file-block],
+.bn-container [data-file-block] *,
+.bn-container [data-file-block] .bn-file-block-content-wrapper {
+  transition: none !important;
+}
+
+/* Also prevent pointer-events on iframes during drag (they eat mouse events).
+   The :active state on the resize handle propagates to the parent. */
+.bn-container [data-file-block]:active iframe {
+  pointer-events: none !important;
+}
+
+/* Block content — remove font-size transition that causes jank */
+.bn-container .bn-block-content {
+  transition: none !important;
+}
+
+/* Block outer — remove margin transition from BlockNote default */
+.bn-container .bn-block-outer {
+  transition: none !important;
+}
+
+/* Embed blocks (YouTube, Vimeo, etc.) — clean iframe container */
+.bn-container [data-content-type="embed"] iframe {
+  border-radius: 6px !important;
+  border: 1px solid var(--text-08) !important;
+}
+
+/* Link preview blocks — already styled, just ensure consistent border-radius */
+.bn-container [data-content-type="linkPreview"] a {
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+
+/* All media blocks — generous spacing */
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="audio"]),
+.bn-container .bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="file"]) {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+/* Selected media — clean highlight (Notion-style) */
+.bn-container [data-file-block] .ProseMirror-selectednode .bn-visual-media,
+.bn-container [data-file-block] .ProseMirror-selectednode .bn-file-name-with-icon,
+.bn-container [data-file-block] .ProseMirror-selectednode .bn-audio {
+  outline: 2px solid rgba(55, 131, 235, 0.5) !important;
+  outline-offset: 2px;
+}
+
+/* ── Block-level background overrides — semi-transparent ──────────
+   BlockNote's dist CSS hardcodes solid backgrounds on .bn-block:has(...)
+   selectors, ignoring our CSS variables. We override ALL of them here
+   with !important to enforce semi-transparent tints + readable text. */
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=gray])  { background-color: rgba(155,155,155,0.14) !important; }
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=red])   { background-color: rgba(224,62,62,0.14) !important; }
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=orange]){ background-color: rgba(217,115,13,0.14) !important; }
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=yellow]){ background-color: rgba(223,171,1,0.14) !important; }
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=green]) { background-color: rgba(15,123,108,0.14) !important; }
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=blue])  { background-color: rgba(11,110,153,0.14) !important; }
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=purple]){ background-color: rgba(105,64,165,0.14) !important; }
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=pink])  { background-color: rgba(173,26,114,0.14) !important; }
+.bn-container .bn-block:has(>.bn-block-content[data-background-color=brown]) { background-color: rgba(100,71,58,0.14) !important; }
+
+/* Inline spans with background color also need override */
+.bn-container [data-style-type=backgroundColor][data-value=gray]  { background-color: rgba(155,155,155,0.14) !important; }
+.bn-container [data-style-type=backgroundColor][data-value=red]   { background-color: rgba(224,62,62,0.14) !important; }
+.bn-container [data-style-type=backgroundColor][data-value=orange]{ background-color: rgba(217,115,13,0.14) !important; }
+.bn-container [data-style-type=backgroundColor][data-value=yellow]{ background-color: rgba(223,171,1,0.14) !important; }
+.bn-container [data-style-type=backgroundColor][data-value=green] { background-color: rgba(15,123,108,0.14) !important; }
+.bn-container [data-style-type=backgroundColor][data-value=blue]  { background-color: rgba(11,110,153,0.14) !important; }
+.bn-container [data-style-type=backgroundColor][data-value=purple]{ background-color: rgba(105,64,165,0.14) !important; }
+.bn-container [data-style-type=backgroundColor][data-value=pink]  { background-color: rgba(173,26,114,0.14) !important; }
+.bn-container [data-style-type=backgroundColor][data-value=brown] { background-color: rgba(100,71,58,0.14) !important; }
+
+/* Text color: keep readable (don't match bg hue) — use normal text color */
+.bn-container .bn-block:has(>.bn-block-content[data-text-color]) { color: var(--text) !important; }
+
+/* Side menu (drag handle + plus) — clean styling */
+.bn-container .bn-side-menu {
+  border: none !important;
+}
+
+/* Slash menu — clean styling */
+.bn-container .bn-slash-menu {
+  max-height: 300px;
+}
+
+/* Link tooltip */
+/* File/media toolbar — above selected media with glass effect */
+.bn-container .bn-toolbar {
+  background: var(--bg-surface) !important;
+  backdrop-filter: blur(12px) !important;
+  padding: 4px !important;
+  gap: 2px !important;
+}
+.bn-container .bn-toolbar [class*="mantine-ActionIcon"] {
+  color: var(--text-50) !important;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+.bn-container .bn-toolbar [class*="mantine-ActionIcon"]:hover,
+.bn-container .bn-toolbar [class*="mantine-ActionIcon"][data-active="true"] {
+  color: var(--text) !important;
+  background-color: var(--text-08) !important;
+}
+
+.bn-container .bn-toolbar[data-toolbar-type="link"] {
+  border: 1px solid var(--text-15) !important;
+}
+
+/* ─── Dark theme overrides ───────────────────────────────────────── */
+
+/* Emoji picker — swap RGB tuples to dark palette */
+[data-theme="dark"] .studypath-emoji-picker-wrapper em-emoji-picker {
+  --rgb-accent: 242, 107, 88;            /* coral dark */
+  --rgb-background: 37, 35, 32;          /* #252320 */
+  --rgb-color: 242, 238, 227;            /* #F2EEE3 */
+  --rgb-input: 45, 42, 37;               /* #2D2A25 */
+}
+
+/* Shiki syntax colors — invert + hue-rotate hack so github-light tokens
+   remain legible on dark background. Only spans carrying inline styles
+   are filtered, so inherited/unstyled text keeps the dark-theme --text. */
+[data-theme="dark"] .bn-container [data-content-type="codeBlock"] code span[style*="color"] {
+  filter: invert(0.92) hue-rotate(180deg);
+}

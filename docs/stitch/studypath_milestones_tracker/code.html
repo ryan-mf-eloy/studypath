@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Studypath - Marcos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#b3291b",
+                        "surface-container-low": "#fbf2e6",
+                        "on-primary-fixed-variant": "#900c05",
+                        "inverse-surface": "#343028",
+                        "surface-container": "#f5ede0",
+                        "on-surface": "#1f1b14",
+                        "on-primary-container": "#fffbff",
+                        "surface-bright": "#fff8f1",
+                        "inverse-on-surface": "#f8f0e3",
+                        "secondary-fixed": "#d3e4ff",
+                        "secondary": "#1960a3",
+                        "surface-container-high": "#f0e7db",
+                        "tertiary-container": "#9c48ea",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#d2402f",
+                        "primary-fixed": "#ffdad4",
+                        "tertiary": "#8127cf",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#a2c9ff",
+                        "outline-variant": "#e2beb9",
+                        "tertiary-fixed-dim": "#ddb7ff",
+                        "on-tertiary-fixed-variant": "#6900b3",
+                        "surface-dim": "#e1d9cd",
+                        "surface-container-highest": "#eae1d5",
+                        "primary": "#b02619",
+                        "on-secondary-fixed-variant": "#004881",
+                        "inverse-primary": "#ffb4a8",
+                        "on-secondary-fixed": "#001c38",
+                        "background": "#fff8f1",
+                        "on-tertiary-fixed": "#2c0051",
+                        "tertiary-fixed": "#f0dbff",
+                        "surface": "#fff8f1",
+                        "outline": "#8e706b",
+                        "on-primary-fixed": "#410000",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#eae1d5",
+                        "on-secondary-container": "#00477f",
+                        "on-surface-variant": "#5a413d",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "secondary-container": "#7db6ff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-background": "#1f1b14"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F4F0E6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1A1A1A;
+            margin: 0;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for editorial feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F4F0E6; }
+        ::-webkit-scrollbar-thumb { background: #E2BEB9; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (Authority: Shared Components JSON) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 bg-[#EDE8DC] dark:bg-stone-900 font-['Plus_Jakarta_Sans'] font-semibold tracking-wide uppercase text-xs w-64 z-50">
+<div class="px-8 mb-12">
+<h1 class="text-xl font-bold text-[#1A1A1A] mb-1">Studypath</h1>
+<p class="text-[10px] text-[#7A746A] tracking-[0.2em]">Curadoria Acadêmica</p>
+</div>
+<nav class="flex-1">
+<ul class="space-y-1">
+<li>
+<a class="text-[#7A746A] flex items-center gap-3 px-6 py-4 hover:text-[#1A1A1A] hover:bg-[#E8E2D4] dark:hover:bg-stone-800 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Início</span>
+</a>
+</li>
+<li>
+<a class="text-[#7A746A] flex items-center gap-3 px-6 py-4 hover:text-[#1A1A1A] hover:bg-[#E8E2D4] dark:hover:bg-stone-800 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span>Trilhas</span>
+</a>
+</li>
+<li>
+<!-- Active State Logic: Milestones maps to Marcos -->
+<a class="text-[#E84F3C] bg-[#F4F0E6] dark:bg-stone-800 rounded-none border-r-4 border-[#E84F3C] flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span>Marcos</span>
+</a>
+</li>
+<li>
+<a class="text-[#7A746A] flex items-center gap-3 px-6 py-4 hover:text-[#1A1A1A] hover:bg-[#E8E2D4] dark:hover:bg-stone-800 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Arquivos</span>
+</a>
+</li>
+</ul>
+<div class="px-6 mt-8">
+<button class="w-full bg-[#1A1A1A] text-white py-3 rounded-full text-xs font-bold tracking-widest hover:bg-[#333] transition-colors">
+                    NOVO PLANO
+                </button>
+</div>
+</nav>
+<div class="mt-auto space-y-1">
+<a class="text-[#7A746A] flex items-center gap-3 px-6 py-4 hover:text-[#1A1A1A] hover:bg-[#E8E2D4] dark:hover:bg-stone-800 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Suporte</span>
+</a>
+<a class="text-[#7A746A] flex items-center gap-3 px-6 py-4 hover:text-[#1A1A1A] hover:bg-[#E8E2D4] dark:hover:bg-stone-800 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Sair</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 bg-[#F4F0E6]">
+<!-- TopNavBar (Authority: Shared Components JSON) -->
+<header class="flex justify-between items-center px-8 py-8 w-full font-['Plus_Jakarta_Sans'] text-[#1A1A1A] leading-relaxed sticky top-0 z-40 bg-[#F4F0E6] bg-opacity-90 backdrop-blur-md">
+<div>
+<h2 class="text-3xl font-bold text-[#1A1A1A] tracking-tight">Milestones</h2>
+<p class="text-[#7A746A] font-medium text-sm mt-1">Certificações e Conquistas</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-[#EDE8DC] transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#EDE8DC] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden ml-2 bg-[#E8E2D4]">
+<img alt="Foto de perfil do usuário" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man in a minimalist studio setting with soft natural light and warm tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS9lDxSl-_vYaX8I1nBnH9WG4aBpoH185eQsx6T3Fy_EAp4hCc4_cWZf_JLMMKYoxZYIZtNntpB0SiQRDM7i2g8XibL3nsPqqZ7Em0He0Pm0-sBVMxKC5MIAgvOz5RQvw8WKx7cb9FuuRrMmHY8lX60AD4lKHzX1qxFctaZupIC7H7OAZMHR8mycpj2EoxTZ-QnHym11S6AZPP3ZKEqJH5XtnO3JzVx4InAG4_YejLIxvV94-YNBhaOeW2w5vF6hqG-DrfZWuWh1aZ"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="px-8 pb-16 max-w-7xl">
+<!-- Hero Section -->
+<section class="mb-12">
+<div class="bg-[#F5EDFF] border border-[#A855F7] rounded-xl p-10 relative overflow-hidden">
+<!-- Background Decor -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-[#A855F7] opacity-5 rounded-full"></div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center relative z-10">
+<div class="space-y-2">
+<span class="text-[#A855F7] text-xs font-bold tracking-[0.2em] uppercase">Próximo Grande Marco</span>
+<h3 class="text-3xl font-bold text-[#1A1A1A]">AWS Certified Solutions Architect</h3>
+<p class="text-[#7A746A] font-medium">Exame: SAA-C03 · Outubro 2026</p>
+</div>
+<div class="mt-6 md:mt-0 text-right">
+<div class="text-[84px] font-extrabold text-[#A855F7] leading-none tracking-tighter">172</div>
+<p class="text-[#A855F7] font-bold text-sm uppercase tracking-widest mt-1">dias restantes</p>
+</div>
+</div>
+<!-- Progress Section -->
+<div class="mt-12 space-y-3">
+<div class="flex justify-between text-xs font-bold text-[#A855F7] uppercase tracking-wider">
+<span>Progresso do Currículo</span>
+<span>10%</span>
+</div>
+<div class="w-full h-1.5 bg-[#A855F7]/10 rounded-full overflow-hidden">
+<div class="h-full bg-[#A855F7] w-[10%]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Grid Section (3 Columns) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="bg-white rounded-xl p-8 transition-all hover:ring-2 hover:ring-[#A855F7]/20 flex flex-col justify-between h-[280px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 bg-[#F5EDFF] rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[#A855F7]" data-icon="cloud">cloud</span>
+</div>
+<span class="text-[10px] font-bold py-1 px-3 bg-[#F5EDFF] text-[#A855F7] rounded-full uppercase tracking-tighter">Cloud Architect</span>
+</div>
+<h4 class="text-xl font-bold leading-tight">GCP Professional Architect</h4>
+<p class="text-sm text-[#7A746A] mt-2">Março 2027</p>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between items-end mb-4">
+<span class="text-2xl font-extrabold">355</span>
+<span class="text-[10px] font-bold text-[#7A746A] uppercase mb-1">dias restantes</span>
+</div>
+<div class="w-full h-1 bg-[#F4F0E6] rounded-full overflow-hidden">
+<div class="h-full bg-[#A855F7] w-0"></div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-xl p-8 transition-all hover:ring-2 hover:ring-[#A855F7]/20 flex flex-col justify-between h-[280px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 bg-[#F5EDFF] rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[#A855F7]" data-icon="dns">dns</span>
+</div>
+<span class="text-[10px] font-bold py-1 px-3 bg-[#F5EDFF] text-[#A855F7] rounded-full uppercase tracking-tighter">Infrastructure</span>
+</div>
+<h4 class="text-xl font-bold leading-tight">Azure Administrator (AZ-104)</h4>
+<p class="text-sm text-[#7A746A] mt-2">Maio 2027</p>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between items-end mb-4">
+<span class="text-2xl font-extrabold">416</span>
+<span class="text-[10px] font-bold text-[#7A746A] uppercase mb-1">dias restantes</span>
+</div>
+<div class="w-full h-1 bg-[#F4F0E6] rounded-full overflow-hidden">
+<div class="h-full bg-[#A855F7] w-0"></div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded-xl p-8 transition-all hover:ring-2 hover:ring-[#A855F7]/20 flex flex-col justify-between h-[280px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 bg-[#F5EDFF] rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[#A855F7]" data-icon="terminal">terminal</span>
+</div>
+<span class="text-[10px] font-bold py-1 px-3 bg-[#F5EDFF] text-[#A855F7] rounded-full uppercase tracking-tighter">DevOps</span>
+</div>
+<h4 class="text-xl font-bold leading-tight">CKA: Kubernetes Administrator</h4>
+<p class="text-sm text-[#7A746A] mt-2">Junho 2027</p>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between items-end mb-4">
+<span class="text-2xl font-extrabold">448</span>
+<span class="text-[10px] font-bold text-[#7A746A] uppercase mb-1">dias restantes</span>
+</div>
+<div class="w-full h-1 bg-[#F4F0E6] rounded-full overflow-hidden">
+<div class="h-full bg-[#A855F7] w-0"></div>
+</div>
+</div>
+</div>
+<!-- Card 4 (Career Milestone - Blue Accent) -->
+<div class="bg-white rounded-xl p-8 transition-all hover:ring-2 hover:ring-[#2B6CB0]/20 flex flex-col justify-between h-[280px] lg:col-span-1">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 bg-[#EEF4FB] rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[#2B6CB0]" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<span class="text-[10px] font-bold py-1 px-3 bg-[#EEF4FB] text-[#2B6CB0] rounded-full uppercase tracking-tighter">Marcos de Carreira</span>
+</div>
+<h4 class="text-xl font-bold leading-tight">Lançamento Projeto Sequoia</h4>
+<p class="text-sm text-[#7A746A] mt-2">Março 2027</p>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between items-end mb-4">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-[#2B6CB0] uppercase mb-1">Status</span>
+<span class="text-xl font-bold text-[#2B6CB0]">Planejado</span>
+</div>
+<div class="text-right">
+<span class="text-2xl font-extrabold">355</span>
+<span class="block text-[10px] font-bold text-[#7A746A] uppercase">dias</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Editorial Stat Card (Bonus for Design Quality) -->
+<div class="lg:col-span-2 bg-[#1A1A1A] rounded-xl p-8 text-white flex flex-col justify-center">
+<div class="flex items-center gap-8">
+<div class="flex-1 border-r border-white/10 pr-8">
+<h5 class="text-[10px] font-bold text-[#E84F3C] uppercase tracking-[0.2em] mb-4">Produtividade Anual</h5>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-extrabold">82%</span>
+<span class="material-symbols-outlined text-[#3D9E6B]" data-icon="trending_up">trending_up</span>
+</div>
+<p class="text-sm text-white/60 mt-2 font-medium">Crescimento constante no ritmo de estudos técnicos vs. 2025.</p>
+</div>
+<div class="flex-1 pl-8">
+<h5 class="text-[10px] font-bold text-[#A855F7] uppercase tracking-[0.2em] mb-4">Foco em Cloud</h5>
+<p class="text-lg font-bold leading-snug">Você completou 14 módulos técnicos este mês.</p>
+<a class="text-[#E84F3C] text-xs font-bold uppercase tracking-widest mt-4 inline-block hover:underline" href="#">Ver Relatório Detalhado</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- FAB (Suppressed based on context: Details/Focused views) -->
+<!-- Not rendering FAB for Milestones management screen to avoid UI clutter -->
+</body></html>

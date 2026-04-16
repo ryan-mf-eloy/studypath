@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Academic Curator - Notas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#8127cf",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f8f0e3",
+                    "surface-variant": "#eae1d5",
+                    "primary-fixed": "#ffdad4",
+                    "surface-container-low": "#fbf2e6",
+                    "on-secondary-fixed-variant": "#004881",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1f1b14",
+                    "outline": "#8e706b",
+                    "on-tertiary-fixed": "#2c0051",
+                    "tertiary-fixed": "#f0dbff",
+                    "tertiary-fixed-dim": "#ddb7ff",
+                    "secondary-container": "#7db6ff",
+                    "primary": "#b02619",
+                    "outline-variant": "#e2beb9",
+                    "on-tertiary-container": "#fffbff",
+                    "on-secondary-container": "#00477f",
+                    "surface-bright": "#fff8f1",
+                    "on-secondary-fixed": "#001c38",
+                    "background": "#fff8f1",
+                    "on-tertiary-fixed-variant": "#6900b3",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#a2c9ff",
+                    "primary-container": "#d2402f",
+                    "tertiary-container": "#9c48ea",
+                    "on-surface": "#1f1b14",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#1960a3",
+                    "on-primary-container": "#fffbff",
+                    "on-surface-variant": "#5a413d",
+                    "on-primary-fixed-variant": "#900c05",
+                    "surface-container-high": "#f0e7db",
+                    "secondary-fixed": "#d3e4ff",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#eae1d5",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#410000",
+                    "surface": "#fff8f1",
+                    "surface-container": "#f5ede0",
+                    "surface-dim": "#e1d9cd",
+                    "inverse-primary": "#ffb4a8",
+                    "inverse-surface": "#343028",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#b3291b",
+                    "primary-fixed-dim": "#ffb4a8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F4F0E6; color: #1A1A1A; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .glass-sidebar { background-color: #EDE8DC; }
+        .no-shadow { box-shadow: none !important; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E8E2D4; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-full w-64 flex flex-col bg-[#EDE8DC] border-r border-[#E8E2D4]/50 z-50">
+<div class="p-8">
+<h1 class="text-lg font-bold text-[#1A1A1A] tracking-tight">The Academic Curator</h1>
+<p class="text-xs font-semibold text-[#7A746A] uppercase tracking-widest mt-1">Technical Path</p>
+</div>
+<div class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] hover:bg-[#F4F0E6] transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="text-sm font-semibold">Roadmap</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#E84F3C] font-semibold border-r-4 border-[#E84F3C] bg-[#F4F0E6]" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-sm">Notas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] hover:bg-[#F4F0E6] transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-sm font-semibold">Comunidade</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] hover:bg-[#F4F0E6] transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="text-sm font-semibold">Arquivos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#7A746A] hover:bg-[#F4F0E6] transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm font-semibold">Configurações</span>
+</a>
+</div>
+<div class="p-6 border-t border-[#E8E2D4]/50">
+<div class="bg-[#1A1A1A] text-white p-4 rounded-xl mb-6">
+<p class="text-xs font-bold uppercase tracking-tighter mb-2">Exclusive access</p>
+<p class="text-sm mb-4 leading-snug">Upgrade for Labs</p>
+<button class="w-full bg-[#E84F3C] text-white py-2 rounded-full text-xs font-bold hover:opacity-90 transition-opacity">PRO UPGRADE</button>
+</div>
+<a class="flex items-center gap-3 px-4 py-2 text-[#7A746A] hover:text-[#1A1A1A] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="text-sm font-semibold">Suporte</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Container -->
+<main class="ml-64 flex-1 flex h-screen overflow-hidden">
+<!-- LEFT PANEL: Note List -->
+<aside class="w-[320px] bg-[#F4F0E6] border-r border-[#E8E2D4] flex flex-col h-full overflow-hidden">
+<!-- Action Header -->
+<div class="p-6 space-y-6">
+<button class="w-full py-3 bg-white border border-[#E84F3C] text-[#E84F3C] font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#FDF0EE] transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Nova nota
+                </button>
+<!-- Filter Tabs -->
+<div class="flex gap-4 border-b border-[#E8E2D4]/50">
+<button class="pb-2 text-sm font-bold text-[#1A1A1A] border-b-2 border-[#E84F3C]">Todas</button>
+<button class="pb-2 text-sm font-semibold text-[#7A746A] hover:text-[#1A1A1A] transition-colors">Por Matéria</button>
+<button class="pb-2 text-sm font-semibold text-[#7A746A] hover:text-[#1A1A1A] transition-colors">Vinculadas</button>
+</div>
+<!-- Search -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#7A746A] text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white/50 border-none rounded-lg text-sm focus:ring-2 focus:ring-[#E84F3C] placeholder:text-[#7A746A]" placeholder="Buscar notas..." type="text"/>
+</div>
+</div>
+<!-- List Area -->
+<div class="flex-1 overflow-y-auto px-2 pb-6 space-y-1">
+<!-- Selected Card -->
+<div class="bg-white border-l-[3px] border-[#E84F3C] p-4 cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-sm font-bold text-[#1A1A1A] leading-tight">async/await — tratamento de erro</h4>
+<span class="text-[10px] text-[#7A746A] font-medium">14:32</span>
+</div>
+<p class="text-xs text-[#7A746A] line-clamp-2 mb-3 leading-relaxed">Sempre usar blocos try/catch para evitar unhandled promise rejections...</p>
+<span class="inline-block px-2 py-0.5 bg-[#FDF0EE] text-[#E84F3C] text-[10px] font-bold rounded-full uppercase tracking-wide">Node.js</span>
+</div>
+<!-- Card 2 -->
+<div class="p-4 hover:bg-[#EDE8DC] transition-colors cursor-pointer rounded-lg mx-2">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-sm font-bold text-[#1A1A1A] leading-tight">Event Loop</h4>
+<span class="text-[10px] text-[#7A746A] font-medium">Ontem</span>
+</div>
+<p class="text-xs text-[#7A746A] line-clamp-2 mb-3 leading-relaxed">Explicando as fases: Timers, Pending Callbacks, Idle/Prepare, Poll...</p>
+<span class="inline-block px-2 py-0.5 bg-[#EDF7F2] text-[#3D9E6B] text-[10px] font-bold rounded-full uppercase tracking-wide">Runtime</span>
+</div>
+<!-- Card 3 -->
+<div class="p-4 hover:bg-[#EDE8DC] transition-colors cursor-pointer rounded-lg mx-2">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-sm font-bold text-[#1A1A1A] leading-tight">Big O</h4>
+<span class="text-[10px] text-[#7A746A] font-medium">12 Out</span>
+</div>
+<p class="text-xs text-[#7A746A] line-clamp-2 mb-3 leading-relaxed">Complexidade de tempo e espaço. O(1) vs O(n) em arrays.</p>
+<span class="inline-block px-2 py-0.5 bg-[#F5EDFF] text-[#A855F7] text-[10px] font-bold rounded-full uppercase tracking-wide">CS Basics</span>
+</div>
+<!-- Card 4 -->
+<div class="p-4 hover:bg-[#EDE8DC] transition-colors cursor-pointer rounded-lg mx-2">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-sm font-bold text-[#1A1A1A] leading-tight">Ideia - projeto Atlas</h4>
+<span class="text-[10px] text-[#7A746A] font-medium">08 Out</span>
+</div>
+<p class="text-xs text-[#7A746A] line-clamp-2 mb-3 leading-relaxed">Construir um CLI para automatizar criação de roadmaps técnicos.</p>
+<span class="inline-block px-2 py-0.5 bg-stone-200 text-stone-600 text-[10px] font-bold rounded-full uppercase tracking-wide">Side Project</span>
+</div>
+<!-- Card 5 -->
+<div class="p-4 hover:bg-[#EDE8DC] transition-colors cursor-pointer rounded-lg mx-2">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-sm font-bold text-[#1A1A1A] leading-tight">Bounded contexts</h4>
+<span class="text-[10px] text-[#7A746A] font-medium">05 Out</span>
+</div>
+<p class="text-xs text-[#7A746A] line-clamp-2 mb-3 leading-relaxed">DDD: Definindo fronteiras entre modelos de domínio.</p>
+<span class="inline-block px-2 py-0.5 bg-[#EEF4FB] text-[#2B6CB0] text-[10px] font-bold rounded-full uppercase tracking-wide">Architecture</span>
+</div>
+</div>
+</aside>
+<!-- RIGHT PANEL: Editor View -->
+<section class="flex-1 bg-white flex flex-col h-full relative overflow-hidden">
+<!-- Header -->
+<header class="pt-10 px-12 pb-6 border-b border-[#E8E2D4]/30">
+<div class="flex items-center gap-2 text-xs font-bold text-[#E84F3C] uppercase tracking-widest mb-4">
+<span>Vinculado a</span>
+<span class="material-symbols-outlined text-[14px]">arrow_right</span>
+<span>Node.js</span>
+<span class="text-[#E8E2D4] mx-1">·</span>
+<span>async/await</span>
+</div>
+<h2 class="text-4xl font-extrabold text-[#1A1A1A] tracking-tight mb-2">async/await — tratamento de erro</h2>
+</header>
+<!-- Editor Content -->
+<div class="flex-1 overflow-y-auto px-12 py-10 max-w-4xl">
+<article class="prose prose-stone max-w-none">
+<h2 class="text-xl font-bold text-[#1A1A1A] mb-6 mt-0">Pontos principais</h2>
+<ul class="space-y-3 mb-8">
+<li class="flex items-start gap-3 text-[#1A1A1A] leading-relaxed">
+<span class="w-1.5 h-1.5 rounded-full bg-[#E84F3C] mt-2.5 shrink-0"></span>
+<span>Sempre utilize <code>try...catch</code> em funções assíncronas para capturar erros de rede ou lógica.</span>
+</li>
+<li class="flex items-start gap-3 text-[#1A1A1A] leading-relaxed">
+<span class="w-1.5 h-1.5 rounded-full bg-[#E84F3C] mt-2.5 shrink-0"></span>
+<span>Considere o uso de <code>Promise.allSettled</code> quando houver múltiplas requisições independentes.</span>
+</li>
+<li class="flex items-start gap-3 text-[#1A1A1A] leading-relaxed">
+<span class="w-1.5 h-1.5 rounded-full bg-[#E84F3C] mt-2.5 shrink-0"></span>
+<span>Erros não capturados podem derrubar o processo Node.js se não tratados globalmente.</span>
+</li>
+</ul>
+<div class="p-6 bg-[#FDF0EE] rounded-xl border-l-4 border-[#E84F3C] mb-10">
+<p class="text-sm font-bold text-[#E84F3C] uppercase tracking-wider mb-2">Cuidado:</p>
+<p class="text-[#1A1A1A] text-sm leading-relaxed">
+                            Evite "vazar" detalhes técnicos do erro para o cliente final. O <code>catch</code> deve logar o erro original mas retornar uma mensagem amigável.
+                        </p>
+</div>
+<h3 class="text-lg font-bold text-[#1A1A1A] mb-4">Exemplo prático</h3>
+<div class="bg-[#1A1A1A] rounded-xl p-6 mb-10 font-mono text-sm leading-relaxed overflow-x-auto">
+<div class="flex flex-col text-[#F4F0E6]">
+<p><span class="text-[#E84F3C]">async function</span> <span class="text-blue-300">getUserData</span>(id) {</p>
+<p class="ml-4"><span class="text-[#E84F3C]">try</span> {</p>
+<p class="ml-8"><span class="text-[#E84F3C]">const</span> response = <span class="text-[#E84F3C]">await</span> fetch(<span class="text-green-300">`/api/users/${id}`</span>);</p>
+<p class="ml-8"><span class="text-[#E84F3C]">if</span> (!response.ok) <span class="text-[#E84F3C]">throw new</span> <span class="text-yellow-200">Error</span>(<span class="text-green-300">'User not found'</span>);</p>
+<p class="ml-8 text-[#7A746A]">// Sucesso</p>
+<p class="ml-8"><span class="text-[#E84F3C]">return await</span> response.json();</p>
+<p class="ml-4">} <span class="text-[#E84F3C]">catch</span> (err) {</p>
+<p class="ml-8 text-[#A855F7]">console.error(<span class="text-green-300">'Logging service error:'</span>, err);</p>
+<p class="ml-8"><span class="text-[#E84F3C]">throw</span> err;</p>
+<p class="ml-4">}</p>
+<p>}</p>
+</div>
+</div>
+<h3 class="text-lg font-bold text-[#1A1A1A] mb-4">Links</h3>
+<ul class="space-y-2">
+<li><a class="text-[#2B6CB0] underline underline-offset-4 decoration-[#EEF4FB] hover:text-[#E84F3C] transition-colors" href="#">Documentação MDN - Async/Await</a></li>
+<li><a class="text-[#2B6CB0] underline underline-offset-4 decoration-[#EEF4FB] hover:text-[#E84F3C] transition-colors" href="#">Node.js Best Practices - Error Handling</a></li>
+</ul>
+</article>
+<!-- Spacer for Toolbar -->
+<div class="h-32"></div>
+</div>
+<!-- Bottom Toolbar -->
+<footer class="absolute bottom-0 left-0 right-0 h-16 bg-white border-t border-[#E8E2D4] flex items-center justify-between px-10">
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 flex items-center justify-center text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="format_bold">format_bold</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="format_italic">format_italic</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="link">link</span>
+</button>
+<div class="w-px h-6 bg-[#E8E2D4] mx-2"></div>
+<button class="w-10 h-10 flex items-center justify-center text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="format_list_numbered">format_list_numbered</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold text-[#3D9E6B] flex items-center gap-1">
+                        Salvo às 14:32
+                        <span class="material-symbols-outlined text-[14px]">check</span>
+</span>
+<div class="w-px h-6 bg-[#E8E2D4] mx-1"></div>
+<button class="w-10 h-10 flex items-center justify-center text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</footer>
+</section>
+</main>
+<!-- TopBar (Overlay logic for desktop layout) -->
+<header class="fixed top-0 left-64 right-0 h-16 bg-[#F4F0E6]/80 backdrop-blur-sm border-b border-[#E8E2D4]/50 z-40 flex items-center justify-between px-8">
+<div class="flex items-center gap-6">
+<h3 class="text-xl font-bold text-[#1A1A1A]">Notas</h3>
+<div class="flex items-center gap-4 ml-4">
+<a class="text-sm font-bold text-[#1A1A1A] border-b-2 border-[#E84F3C] h-16 flex items-center" href="#">Recentes</a>
+<a class="text-sm font-semibold text-[#7A746A] hover:text-[#E84F3C] transition-colors" href="#">Favoritos</a>
+<a class="text-sm font-semibold text-[#7A746A] hover:text-[#E84F3C] transition-colors" href="#">Lixeira</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#7A746A] hover:text-[#1A1A1A] transition-colors" data-icon="sync">sync</button>
+<button class="material-symbols-outlined text-[#7A746A] hover:text-[#1A1A1A] transition-colors" data-icon="more_vert">more_vert</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-white ring-1 ring-[#E8E2D4]">
+<img alt="User" data-alt="close-up portrait of a professional man with clean grooming in soft studio lighting with a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBruND0zRDLSv07CQQ6JhjxlD5ZKhgLffRwB67gl5C3L0pdM0MmcFaXSmeDUXu_5vwkwByhjtCTK7mJ1sbD8EnjISNohUPkPgqHwFPz-sefVgXYO0iQ0pq5KT89WJJXpF2LHgfyTT9a1298A_6CQMgF6qhcl4xK4nfPS22z16BdP53GS9NqftxAjcfHb7oYJ6giLwh1EFAlpI6J1EpYCEFrpaVC98x1C3Cexix4MzSKuoaLREr3fuRcGEk9DKrJaWlojRsucUgELqBf"/>
+</div>
+</div>
+</header>
+</body></html>

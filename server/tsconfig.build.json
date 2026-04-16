@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "../dist-server",
+    "rootDir": "..",
+    "declaration": false,
+    "sourceMap": false,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false
+  },
+  "include": ["./**/*.ts", "../src/types/**/*.ts", "../src/data/**/*.ts"],
+  "exclude": ["node_modules", "../dist-server"]
+}

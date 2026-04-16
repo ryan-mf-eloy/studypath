@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <title>StudyPath</title>
+  <!-- ascending arc -->
+  <path
+    d="M 25 78 Q 30 30, 75 25"
+    stroke="#E84F3C"
+    stroke-width="11"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+  <!-- milestone dot -->
+  <circle cx="75" cy="25" r="9" fill="#E84F3C" />
+</svg>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#e2beb9",
+                    "on-surface": "#1f1b14",
+                    "surface-container-highest": "#eae1d5",
+                    "tertiary-container": "#9c48ea",
+                    "outline": "#8e706b",
+                    "primary-container": "#d2402f",
+                    "on-secondary-container": "#00477f",
+                    "tertiary-fixed-dim": "#ddb7ff",
+                    "tertiary": "#8127cf",
+                    "inverse-primary": "#ffb4a8",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#ffdad4",
+                    "surface-variant": "#eae1d5",
+                    "on-secondary-fixed-variant": "#004881",
+                    "on-tertiary-fixed-variant": "#6900b3",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#2c0051",
+                    "surface": "#fff8f1",
+                    "secondary-container": "#7db6ff",
+                    "inverse-surface": "#343028",
+                    "tertiary-fixed": "#f0dbff",
+                    "surface-container-high": "#f0e7db",
+                    "secondary-fixed": "#d3e4ff",
+                    "surface-container": "#f5ede0",
+                    "secondary": "#1960a3",
+                    "on-primary-fixed-variant": "#900c05",
+                    "surface-container-low": "#fbf2e6",
+                    "on-surface-variant": "#5a413d",
+                    "on-primary-fixed": "#410000",
+                    "surface-tint": "#b3291b",
+                    "primary": "#b02619",
+                    "inverse-on-surface": "#f8f0e3",
+                    "on-secondary-fixed": "#001c38",
+                    "on-background": "#1f1b14",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#a2c9ff",
+                    "background": "#fff8f1",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#ffb4a8",
+                    "surface-dim": "#e1d9cd",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#fffbff",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#fff8f1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F4F0E6; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col bg-[#EDE8DC] w-64 border-r-0 z-10">
+<div class="p-8 flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-[#E84F3C]"></div>
+<span class="text-2xl font-bold text-[#1A1A1A]">Studypath</span>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-[#7A746A] hover:bg-[#E8E2D4] transition-colors font-['Plus_Jakarta_Sans'] font-semibold text-sm uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Painel
+            </a>
+<!-- Active Navigation Mapping -->
+<a class="flex items-center gap-4 px-4 py-3 text-[#E84F3C] font-bold border-r-4 border-[#E84F3C] bg-[#E8E2D4]/30 transition-colors font-['Plus_Jakarta_Sans'] text-sm uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+                Roteiros
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#7A746A] hover:bg-[#E8E2D4] transition-colors font-['Plus_Jakarta_Sans'] font-semibold text-sm uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+                Biblioteca
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#7A746A] hover:bg-[#E8E2D4] transition-colors font-['Plus_Jakarta_Sans'] font-semibold text-sm uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Progresso
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#7A746A] hover:bg-[#E8E2D4] transition-colors font-['Plus_Jakarta_Sans'] font-semibold text-sm uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Configurações
+            </a>
+</nav>
+<div class="p-6 border-t border-[#E8E2D4]/50">
+<button class="w-full py-3 px-4 bg-[#1A1A1A] text-white rounded-full font-semibold text-sm transition-transform active:scale-95">
+                Novo Roteiro
+            </button>
+<a class="mt-6 flex items-center gap-4 px-4 py-2 text-[#7A746A] hover:text-[#1A1A1A] transition-colors font-semibold text-sm uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                Suporte
+            </a>
+</div>
+</aside>
+<!-- Main Content Area (Behind Overlay) -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-64 flex justify-between items-center px-8 h-16 z-20 bg-[#F4F0E6]/80 backdrop-blur-md border-b border-[#E8E2D4]/50">
+<div class="flex items-center gap-8 font-['Plus_Jakarta_Sans'] font-medium text-base">
+<a class="text-[#E84F3C] font-bold" href="#">Meus Estudos</a>
+<a class="text-[#1A1A1A] hover:text-[#E84F3C] transition-all" href="#">Certificações</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-[#7A746A]">
+<span class="material-symbols-outlined text-xl" data-icon="search">search</span>
+</span>
+<input class="bg-white border-0 rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-2 focus:ring-[#E84F3C] w-64 transition-all" placeholder="Buscar no roteiro..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#1A1A1A] hover:bg-[#E8E2D4] rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-[#1A1A1A] hover:bg-[#E8E2D4] rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<img alt="Avatar do Estudante" class="w-8 h-8 rounded-full bg-surface-container-highest" data-alt="Close-up portrait of a young male student with glasses in a library setting, soft natural lighting, intellectual vibe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD26EwGikGJyd3VFdZTVFSeH7ATrpVMWDkNsoFDEOsQvIirqWnUbFgHMa5rSizB0CP_2RDd-KLdz5tk5SlBqzgSBied4ARseYO4ERkFax0r4KvyoZ1-a9udHfLlQKzA_Bt4ZcRQrpm53SJWafbFhmqJnC_BcNk3nX12n3T-dvVOIEdJOEwfadVSiy7e6DJOgG1xScBoOfbnChwEQLxIrCyqhnrF3lP-cNMl9-RNWor8S7MfE-rcOc9RSjt3W9eGYrwGH57ZDKn2T14p"/>
+</div>
+</div>
+</header>
+<!-- Roadmap Canvas Content -->
+<div class="pt-24 pb-12 px-12 max-w-5xl mx-auto">
+<div class="mb-12">
+<h1 class="text-5xl font-bold text-[#1A1A1A] mb-4">Desenvolvimento Node.js</h1>
+<p class="text-[#7A746A] text-lg max-w-2xl leading-relaxed">Sua jornada técnica para dominar a arquitetura de servidores de alta performance e ecossistema backend moderno.</p>
+</div>
+<!-- Phase Accordions (Simulated Roadmap) -->
+<div class="space-y-8">
+<!-- Phase 1 -->
+<section class="bg-white rounded-xl p-8 border-l-4 border-[#3D9E6B]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-[#3D9E6B] mb-2 block">Módulo 01</span>
+<h2 class="text-2xl font-bold text-[#1A1A1A]">Fundamentos &amp; V8 Engine</h2>
+</div>
+<span class="bg-[#EDF7F2] text-[#3D9E6B] px-3 py-1 rounded-full text-xs font-bold uppercase">Concluído</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-lg bg-surface-container-low border border-[#E8E2D4]/30">
+<span class="material-symbols-outlined text-xl mb-2 text-[#3D9E6B]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<h3 class="font-bold text-[#1A1A1A]">Event Loop</h3>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low border border-[#E8E2D4]/30">
+<span class="material-symbols-outlined text-xl mb-2 text-[#3D9E6B]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<h3 class="font-bold text-[#1A1A1A]">Global Objects</h3>
+</div>
+</div>
+</section>
+<!-- Phase 2 (Active) -->
+<section class="bg-white rounded-xl p-8 border-l-4 border-[#E84F3C]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-[#E84F3C] mb-2 block">Módulo 02</span>
+<h2 class="text-2xl font-bold text-[#1A1A1A]">Assincronismo &amp; Promises</h2>
+</div>
+<span class="bg-[#FDF0EE] text-[#E84F3C] px-3 py-1 rounded-full text-xs font-bold uppercase">Em Foco</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-lg bg-[#FDF0EE] border-2 border-[#E84F3C]">
+<span class="material-symbols-outlined text-xl mb-2 text-[#E84F3C]" data-icon="edit_note">edit_note</span>
+<h3 class="font-bold text-[#1A1A1A]">async/await e tratamento de erro</h3>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low opacity-60">
+<span class="material-symbols-outlined text-xl mb-2 text-[#7A746A]" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<h3 class="font-bold text-[#1A1A1A]">Promise.all &amp; Race</h3>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Semantic Overlay -->
+<div class="fixed inset-0 bg-[#1A1A1A]/15 z-30 pointer-events-none"></div>
+<!-- NavigationDrawer (The Side Panel) -->
+<aside class="fixed right-0 top-0 h-full w-[480px] bg-white z-50 flex flex-col border-l border-[#E8E2D4]/50">
+<!-- Panel Header -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-[#E8E2D4]/50 bg-surface/30">
+<div class="flex flex-col">
+<nav class="flex items-center gap-1 text-[11px] font-semibold text-[#7A746A] uppercase tracking-wider mb-0.5">
+<span>Node.js</span>
+<span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span>
+<span class="text-[#E84F3C]">async/await e tratamento de erro</span>
+</nav>
+</div>
+<button class="p-2 text-[#7A746A] hover:text-[#1A1A1A] hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto p-8 scrollbar-hide">
+<input class="w-full border-none p-0 text-3xl font-bold text-[#1A1A1A] focus:ring-0 mb-6 placeholder:text-[#E8E2D4]" type="text" value="async/await e tratamento de erro"/>
+<div class="w-full h-px bg-[#E8E2D4]/50 mb-8"></div>
+<div class="font-['Plus_Jakarta_Sans'] leading-relaxed text-[#1A1A1A] space-y-6">
+<div class="space-y-4">
+<h2 class="text-xl font-bold text-[#1A1A1A]">## Pontos principais</h2>
+<ul class="space-y-3 list-none">
+<li class="flex items-start gap-2">
+<span class="mt-2 w-1.5 h-1.5 rounded-full bg-[#E84F3C] flex-shrink-0"></span>
+<span><code class="bg-surface-container-low px-1.5 py-0.5 rounded text-sm text-[#E84F3C] font-mono">async</code> functions always return a Promise</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="mt-2 w-1.5 h-1.5 rounded-full bg-[#E84F3C] flex-shrink-0"></span>
+<span><code class="bg-surface-container-low px-1.5 py-0.5 rounded text-sm text-[#E84F3C] font-mono">await</code> pauses execution inside the async function only</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="mt-2 w-1.5 h-1.5 rounded-full bg-[#E84F3C] flex-shrink-0"></span>
+<span>Error handling: wrap in try/catch or use .catch()</span>
+</li>
+</ul>
+</div>
+<div class="bg-[#FDF0EE] p-4 rounded-lg border-l-4 border-[#E84F3C]">
+<p class="font-bold text-[#E84F3C] text-sm mb-1 uppercase tracking-tight">Cuidado:</p>
+<p class="text-[#1A1A1A]">unhandled promise rejections em Node.js podem derrubar o processo em versões recentes.</p>
+</div>
+<!-- Placeholder for further typing -->
+<div class="h-64 cursor-text"></div>
+</div>
+</div>
+<!-- Footer Toolbar -->
+<div class="p-6 border-t border-[#E8E2D4]/50 bg-white">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-1">
+<button class="p-2 text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="format_bold">format_bold</span>
+</button>
+<button class="p-2 text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="format_italic">format_italic</span>
+</button>
+<button class="p-2 text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="link">link</span>
+</button>
+<div class="w-px h-6 bg-[#E8E2D4] mx-2"></div>
+<button class="p-2 text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+</button>
+<button class="p-2 text-[#7A746A] hover:bg-[#F4F0E6] rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-[#3D9E6B] font-semibold text-[10px] uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+                        Salvo às 14:32
+                    </div>
+</div>
+<div class="flex items-center gap-2 px-3 py-2 bg-surface rounded-lg border border-[#E8E2D4]/50">
+<span class="material-symbols-outlined text-sm text-[#7A746A]" data-icon="attachment">attachment</span>
+<span class="text-[11px] font-semibold text-[#7A746A]">Vinculado a: <span class="text-[#1A1A1A]">Node.js · async/await</span></span>
+</div>
+</div>
+</aside>
+</main>
+</body></html>

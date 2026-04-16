@@ -1,0 +1,92 @@
+appId: com.studypath.app
+productName: StudyPath
+copyright: "© Ryan Eloy"
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - package.json
+  - "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}"
+  - "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}"
+  - "!**/node_modules/*.d.ts"
+  - "!**/node_modules/.bin"
+  - "!**/{.DS_Store,.git,.gitignore,.eslintrc,.editorconfig,.prettierrc}"
+  - "!**/tsconfig*.json"
+
+# Native modules must live outside the asar so dlopen() can load them.
+asarUnpack:
+  - "node_modules/better-sqlite3/**/*"
+
+# better-sqlite3 is a native dep; electron-builder rebuilds it against
+# the Electron Node ABI automatically.
+npmRebuild: true
+
+mac:
+  category: public.app-category.education
+  icon: build/icon.icns
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  darkModeSupport: true
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  identity: null
+  extraResources:
+    - from: build/tray-icon.png
+      to: tray-icon.png
+    - from: build/tray-icon@2x.png
+      to: tray-icon@2x.png
+
+dmg:
+  title: "StudyPath ${version}"
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+  extraResources:
+    - from: build/tray-icon-color.png
+      to: tray-icon-color.png
+    - from: build/tray-icon-color@2x.png
+      to: tray-icon-color@2x.png
+
+nsis:
+  oneClick: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: StudyPath
+
+linux:
+  category: Education
+  icon: build/icon.png
+  target:
+    - target: AppImage
+      arch:
+        - x64
+    - target: deb
+      arch:
+        - x64
+  maintainer: "Ryan Eloy"
+  vendor: "Ryan Eloy"
+  extraResources:
+    - from: build/tray-icon-color.png
+      to: tray-icon-color.png
+    - from: build/tray-icon-color@2x.png
+      to: tray-icon-color@2x.png

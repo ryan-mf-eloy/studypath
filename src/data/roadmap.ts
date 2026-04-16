@@ -1,11 +1,13 @@
-/* ─── STUDYPATH — Dados seed do roadmap ─────────────────────────────────────
-   Fonte: roadmap_estudos_2026_2027.md
-   Guia completo de transcrição: docs/superpowers/data/roadmap-seed-guide.md
+/* ─── STUDYPATH — Dados SEED do roadmap ──────────────────────────────────────
+   SEED inicial usada UMA VEZ no primeiro boot do servidor pra popular o
+   SQLite. Depois disso o roadmap mora em `data/studypath.db` e é editável.
+   Nenhum componente deve mais importar isso direto — consuma via
+   `useRoadmapStore` no cliente ou `loadRoadmap()` no servidor.
    ─────────────────────────────────────────────────────────────────────────── */
 
 import type { RoadmapData } from '../types';
 
-export const roadmap: RoadmapData = {
+export const SEED_ROADMAP: RoadmapData = {
   startDate: '2026-04-01',
   endDate:   '2027-06-30',
 

@@ -2,7 +2,7 @@
 
 ## What this app is
 
-Desktop web app for Ryan Eloy to track a 15-month technical study roadmap (April 2026 – June 2027). Five screens: Overview, Roadmap, Matérias, Notas, Milestones. All UI in Brazilian Portuguese.
+Cross-platform native desktop app (Electron) for Ryan Eloy to track a 15-month technical study roadmap (April 2026 – June 2027). Runs the full stack (React renderer + Hono backend + SQLite) inside a single process. Five screens: Overview, Roadmap, Matérias, Notas, Milestones. All UI in Brazilian Portuguese.
 
 **Source of truth:**
 - Design spec: `docs/superpowers/specs/2026-04-11-study-app-design.md`
@@ -16,15 +16,79 @@ Desktop web app for Ryan Eloy to track a 15-month technical study roadmap (April
 
 | Layer | Tech |
 |---|---|
-| Framework | React 18 + TypeScript 5 |
+| Desktop shell | Electron 41 + electron-vite + electron-builder |
+| Framework | React 19 + TypeScript |
 | Build | Vite + `@tailwindcss/vite` |
 | Styling | Tailwind CSS v4 + CSS custom properties |
 | Icons | `@phosphor-icons/react` |
-| Routing | React Router v6 |
-| State | Zustand + `persist` middleware |
-| Notes editor | `@uiw/react-md-editor` |
-| Persistence | `localStorage` (keys: `studypath-progress`, `studypath-notes`) |
-| Font | Plus Jakarta Sans via `@fontsource/plus-jakarta-sans` |
+| State (in-memory cache) | Zustand |
+| Notes editor | BlockNote |
+| Backend | Hono + `@hono/node-server` embedded in the Electron main process |
+| Persistence | SQLite via `better-sqlite3` — `~/Library/Application Support/StudyPath/studypath.db` (macOS) |
+| Client ↔ Server | `src/lib/api.ts` + write-through retry queue in `src/lib/serverSync.ts` |
+| UI-only localStorage | theme, note prefs, AI provider keys |
+
+## Backend architecture
+
+- Server lives in `server/` (TypeScript). Routes under `server/routes/`:
+  - `state` — one-shot hydrate bundle for the client on boot
+  - `progress`, `sessions`, `reviews`, `notes`, `subtopics`, `milestones`, `reflections` — CRUD
+  - `metrics` — SQL-aggregated `/api/metrics/{progress,pace/:monthId,streak,time,reviews/due,overview}`
+  - `migrate/from-local` — idempotent import of legacy localStorage dumps
+  - `admin/reset` — wipe all tables
+- Schema lives as an inline template literal in `server/schema.ts` (so it bundles cleanly into `dist-electron/main/main.js`). Applied on startup by `server/db.ts` via `runSchema()` inside `startServer()`. `better-sqlite3` is opened lazily via a Proxy so `STUDYPATH_DB_PATH` set by the Electron main process is honored before the first DB access.
+- The Hono server also serves the built Vite renderer statically; in the packaged app the BrowserWindow loads `http://127.0.0.1:<random-port>/` so `/api` and the renderer share an origin (no CORS, no `file://`).
+- Client hydrates once on mount via `src/hooks/useServerSync.ts` (gate in `src/components/ui/HydrationGate.tsx`).
+- Each persisted store (`useProgressStore`, `useSessionsStore`, `useReviewStore`, `useNotesStore`, `useSubtopicsStore`, `useMilestonesStore`, `useJournalStore`) updates Zustand optimistically and calls `enqueueWrite(...)` — writes are retried until the server is reachable.
+- `npm run smoke:api` runs the end-to-end endpoint smoke test (`scripts/smoke-api.mjs`).
+
+---
+
+## Desktop (Electron) architecture
+
+Main process lives in `electron/main.ts`. At startup it:
+
+1. Sets `STUDYPATH_DB_PATH = app.getPath('userData') + '/studypath.db'`
+2. Calls `startServer()` from `server/index.ts` — the Hono app binds to a random port on `127.0.0.1`
+3. Creates the BrowserWindow (`hiddenInset` titlebar on macOS, cream background matching the design tokens)
+4. Loads `http://127.0.0.1:<port>/` (production) or Vite's HMR URL (electron-vite dev)
+5. Builds a native menu (File / Edit / View / Window / Help)
+6. Builds a system tray with "Abrir StudyPath" + "Sair"
+
+electron-vite bundles `electron/main.ts` + the transitively-imported `server/**` into `dist-electron/main/main.js`. `better-sqlite3` and `electron` stay external (runtime requires). The native `.node` binary ships outside the asar archive via `asarUnpack` in `electron-builder.yml`.
+
+**Native module ABI toggle**
+Since `better-sqlite3` is compiled once per runtime, the project has two scripts:
+- `npm run rebuild:node` — after cloning or before `npm run smoke:api` / `npm run dev` (web mode)
+- `npm run rebuild:electron` — before `npm run pack*` or running the packaged app from source
+
+`electron-builder` runs `@electron/rebuild` automatically during packaging, so the final DMG/NSIS/AppImage contain the correct ABI.
+
+## Desktop build workflow
+
+```
+# 1. Initial install
+npm install --legacy-peer-deps
+
+# 2. Generate app icons (once, or when design changes)
+npm run icon:generate      # writes build/icon.icns + build/icon.png + build/tray-icon.png
+
+# 3a. Web dev (browser + proxied Hono server)
+npm run dev                # server:3001 + vite HMR (no Electron)
+npm run rebuild:node       # if ABI was toggled to Electron
+
+# 3b. Electron dev (HMR main + renderer + server)
+npm run rebuild:electron   # rebuild better-sqlite3 for Electron ABI
+npm run dev:electron       # launches electron-vite dev
+
+# 4. Build + package
+npm run pack:mac           # → release/StudyPath-0.1.0{,-arm64}.dmg (x64 + arm64)
+npm run pack:win           # → release/StudyPath Setup 0.1.0.exe
+npm run pack:linux         # → release/StudyPath-0.1.0.AppImage + .deb
+npm run pack               # all platforms supported by the current host
+```
+
+Build artifacts land in `release/`. The DB always lives in Electron's `userData` dir per-user (never inside the app bundle).
 
 ---
 

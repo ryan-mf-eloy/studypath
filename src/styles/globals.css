@@ -1,12 +1,7 @@
 @import './tokens.css';
-
-/* Plus Jakarta Sans — pesos usados no app */
-@import '@fontsource/plus-jakarta-sans/400.css';
-@import '@fontsource/plus-jakarta-sans/500.css';
-@import '@fontsource/plus-jakarta-sans/600.css';
-@import '@fontsource/plus-jakarta-sans/700.css';
-@import '@fontsource/plus-jakarta-sans/800.css';
-
+@import './blocknote-theme.css';
+@import './command-palette.css';
+@import './skeleton.css';
 @import 'tailwindcss';
 
 /* ── Reset & base ───────────────────────────────────────────────────────── */
@@ -16,23 +11,237 @@
   padding: 0;
 }
 
+html {
+  color-scheme: light dark;
+}
+
 html, body, #root {
   height: 100%;
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Theme transition — applied on theme swap ───────────────────────────── */
+*, *::before, *::after {
+  transition:
+    background-color 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color     350ms cubic-bezier(0.22, 1, 0.36, 1),
+    color            350ms cubic-bezier(0.22, 1, 0.36, 1),
+    fill             350ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke           350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0ms !important;
+  }
+}
+
+/* ── Text selection — warm coral tint that fits the design system ──────── */
+::selection {
+  background-color: rgba(232, 79, 60, 0.22);
+  color: var(--text);
+}
+::-moz-selection {
+  background-color: rgba(232, 79, 60, 0.22);
+  color: var(--text);
+}
+
+/* ── Scroll: allowed but invisible across the whole app ────────────────── */
+* {
+  scrollbar-width: none;                /* Firefox */
+  -ms-overflow-style: none;             /* IE/legacy Edge */
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;                        /* Chrome/Safari/Electron */
+}
+
+/* ── Note list card — reveal the left accent bar on hover ──────────────── */
+.note-list-card:hover .note-card-accent {
+  opacity: 1 !important;
+}
+
+/* ── SearchBar cycling hint animation ──────────────────────────────────── */
+@keyframes sp-search-hint-in {
+  0%   { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.sp-search-hint {
+  animation: sp-search-hint-in 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sp-search-hint { animation: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SHARED ANIMATION PRIMITIVES
+   Used across popovers, pages, views, and interactive feedback.
+   Every animation honors prefers-reduced-motion.
+   ────────────────────────────────────────────────────────────────────────── */
+
+@keyframes sp-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes sp-fade-up-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sp-fade-up-sm-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sp-pop-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes sp-check-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+@keyframes sp-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Page & view entrances ─────────────────────────────────────────────── */
+.sp-page-enter {
+  animation: sp-fade-up-in 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.sp-view-enter {
+  animation: sp-fade-up-sm-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Stagger utility for Overview sections ────────────────────────────── */
+.sp-stagger > * {
+  animation: sp-fade-up-sm-in 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.sp-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.sp-stagger > *:nth-child(2) { animation-delay: 50ms; }
+.sp-stagger > *:nth-child(3) { animation-delay: 100ms; }
+.sp-stagger > *:nth-child(4) { animation-delay: 150ms; }
+.sp-stagger > *:nth-child(5) { animation-delay: 200ms; }
+.sp-stagger > *:nth-child(6) { animation-delay: 250ms; }
+
+/* ── Popover entrance — applied to dropdowns, pickers, menus ──────────── */
+.sp-popover-enter {
+  animation: sp-pop-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: top right;
+}
+
+/* ── Glass surface — subtle blur for slide-overs and modals ───────────── */
+.sp-glass {
+  background: var(--glass-surface);
+  border-color: var(--glass-border);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Fallback for browsers without backdrop-filter — opaque surface. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .sp-glass {
+    background: var(--bg-surface);
+    border-color: var(--text-15);
+  }
+}
+
+/* ── Checkbox bounce — applied when topic becomes checked ─────────────── */
+.sp-check-bounce {
+  animation: sp-check-pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Interactive press feedback — applied to buttons globally ─────────── */
+button:not(:disabled):active,
+[role="button"]:not(:disabled):active {
+  transform: scale(0.97);
+  transition: transform 80ms ease-out;
+}
+
+/* ── Accordion section (NoteActionsMenu) ──────────────────────────────── */
+.sp-accordion-section {
+  overflow: hidden;
+  transition:
+    max-height 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease-out,
+    padding 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sp-accordion-section[data-expanded="false"] {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.sp-accordion-section[data-expanded="true"] {
+  max-height: 700px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-page-enter,
+  .sp-view-enter,
+  .sp-popover-enter,
+  .sp-stagger > *,
+  .sp-check-bounce {
+    animation: none !important;
+  }
+  .sp-accordion-section {
+    transition: none !important;
+  }
+  button:not(:disabled):active,
+  [role="button"]:not(:disabled):active {
+    transform: none;
+  }
+}
+
+/* ── Confirm dialog — fade + scale entrance ───────────────────────────── */
+@keyframes sp-confirm-backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes sp-confirm-modal-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  @keyframes sp-confirm-backdrop-in { from, to { opacity: 1; } }
+  @keyframes sp-confirm-modal-in { from, to { opacity: 1; transform: none; } }
+}
+
+/* ── Overview grid — responsive 2-col → 1-col ──────────────────────────── */
+.sp-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  column-gap: 48px;
+  row-gap: 16px;
+  align-content: start;
+}
+@media (max-width: 960px) {
+  .sp-overview-grid {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+    row-gap: 22px;
+  }
+}
+
 /* ── Scrollbar discreta ─────────────────────────────────────────────────── */
-::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar       { width: 3px; height: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: var(--radius-full); }
-::-webkit-scrollbar-thumb:hover { background: var(--text-disabled); }
+::-webkit-scrollbar-thumb { background: var(--text-15); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-30); }
 
 /* ── Utilitários globais ────────────────────────────────────────────────── */
 .no-scrollbar::-webkit-scrollbar { display: none; }

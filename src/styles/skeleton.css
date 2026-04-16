@@ -1,0 +1,18 @@
+/* ── Skeleton loading — pulse minimalista ──────────────────────────────── */
+
+@keyframes sp-skeleton-pulse {
+  0%, 100% { background-color: var(--text-08); }
+  50%      { background-color: var(--text-15); }
+}
+
+.sp-skeleton {
+  background-color: var(--text-08);
+  animation: sp-skeleton-pulse 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-skeleton {
+    animation: none;
+    background-color: var(--text-08);
+  }
+}
