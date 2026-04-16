@@ -2,6 +2,11 @@ appId: com.studypath.app
 productName: StudyPath
 copyright: "© Ryan Eloy"
 
+publish:
+  provider: github
+  owner: ryan-mf-eloy
+  repo: studypath
+
 directories:
   output: release
   buildResources: build

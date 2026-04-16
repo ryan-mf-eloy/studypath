@@ -1,7 +1,8 @@
-import { app, BrowserWindow, Menu, Tray, nativeImage, shell } from 'electron';
+import { app, BrowserWindow, Menu, Tray, nativeImage, shell, dialog } from 'electron';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
+import { autoUpdater } from 'electron-updater';
 import { startServer } from '../server/index';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -224,6 +225,49 @@ function buildTray() {
   tray.setContextMenu(contextMenu);
 }
 
+/* ─── Auto-updater (Windows only) ─────────────────────────────────── */
+
+function setupAutoUpdater() {
+  if (isDev || process.platform === 'darwin') return;
+
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = true;
+
+  autoUpdater.on('update-available', (info) => {
+    dialog
+      .showMessageBox({
+        type: 'info',
+        title: 'Atualização disponível',
+        message: `Uma nova versão (${info.version}) está disponível. Deseja baixar agora?`,
+        buttons: ['Baixar', 'Depois'],
+        defaultId: 0,
+      })
+      .then(({ response }) => {
+        if (response === 0) autoUpdater.downloadUpdate();
+      });
+  });
+
+  autoUpdater.on('update-downloaded', () => {
+    dialog
+      .showMessageBox({
+        type: 'info',
+        title: 'Atualização pronta',
+        message: 'A atualização foi baixada. O StudyPath será reiniciado para aplicar.',
+        buttons: ['Reiniciar agora', 'Depois'],
+        defaultId: 0,
+      })
+      .then(({ response }) => {
+        if (response === 0) autoUpdater.quitAndInstall();
+      });
+  });
+
+  autoUpdater.on('error', (err) => {
+    console.error('[auto-updater]', err.message);
+  });
+
+  autoUpdater.checkForUpdates();
+}
+
 /* ─── App lifecycle ────────────────────────────────────────────────── */
 
 app.whenReady().then(async () => {
@@ -239,6 +283,7 @@ app.whenReady().then(async () => {
   buildMenu();
   await createWindow();
   buildTray();
+  setupAutoUpdater();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
