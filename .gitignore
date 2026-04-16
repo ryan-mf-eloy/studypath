@@ -8,8 +8,8 @@ dist-electron
 dist-ssr
 release
 
-# Runtime data
-data
+# Runtime data (root-level dev database only)
+/data
 *.db
 *.db-wal
 *.db-shm
